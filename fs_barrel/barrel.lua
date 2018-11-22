@@ -1,5 +1,4 @@
-local animate_barrel = function(pos, meta)
-	local idx = meta:get_int("idx")
+local animate_barrel = function(pos, meta, idx)
 	idx = (idx + 1) % 13
 	meta:set_int("idx", idx)
 
@@ -7,6 +6,28 @@ local animate_barrel = function(pos, meta)
 	node.name = meta:get_string("node_name")..idx
 
 	minetest.swap_node(pos, node)
+
+	return idx
+end
+
+local update_barrel = function(pos, player, itemstack)
+	local meta = minetest.get_meta(pos)
+	local inv = meta:get_inventory()
+	local idx = meta:get_int("idx")
+
+	if idx < 12 and minetest.get_item_group(itemstack:get_name(), "sapling") > 0 then
+		idx = animate_barrel(pos, meta, idx)
+		itemstack:take_item()
+	elseif idx == 12 then
+		idx = animate_barrel(pos, meta, idx)
+		-- drop_item_stack(pos, "default:dirt")
+
+		if player:get_inventory():room_for_item("main", "default:dirt") then
+			player:get_inventory():add_item("main", "default:dirt")
+		end
+	end
+
+	return itemstack
 end
 
 for idx = 0, 13 do
@@ -61,7 +82,6 @@ for idx = 0, 13 do
 			meta:set_string("node_name", node_name)
 
 			local inv = meta:get_inventory()
-			inv:set_size('src', 1)
 			inv:set_size('dst', 1)
 		end,
 
@@ -71,15 +91,7 @@ for idx = 0, 13 do
 		end,
 
 		on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-			local meta = minetest.get_meta(pos)
-			local inv = meta:get_inventory()
-
-			if itemstack:get_name() == "default:sapling" then
-				inv:set_stack("src", 1, itemstack:take_item())
-				animate_barrel(pos, meta)
-			end
-
-			return itemstack
+			return update_barrel(pos, player, itemstack)
 		end,
 
 		paramtype = "light",
