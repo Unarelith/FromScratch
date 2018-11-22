@@ -179,8 +179,14 @@ for idx = 0, 4 do
 		paramtype2 = "facedir",
 		sunlight_propagates = true,
 		is_ground_content = false,
-		groups = {choppy=2, cracky=1, not_in_creative_inventory=not_in_creative_inventory, tubedevice = 1, tubedevice_receiver = 1},
+		groups = {
+			choppy = 2,
+			cracky = 1,
+			not_in_creative_inventory = not_in_creative_inventory
+		},
 		drop = node_name.."3",
 	})
 end
+
+minetest.register_alias("fs_sieve:sieve", "fs_sieve:sieve3")
 
