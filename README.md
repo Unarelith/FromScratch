@@ -33,6 +33,12 @@ Use a hammer to smash blocks:
 - Gravel -> Sand
 - _Sand -> Dust_ (TODO)
 
+## Dependencies
+
+- default
+- farming (for `farming:string`)
+- moreblocks (optional)
+
 ## License
 
 Copyright (C) 2018-2019 Quentin Bazin

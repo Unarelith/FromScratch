@@ -13,12 +13,16 @@ TODOLIST
 
 # fs_core
 
-• TODO: Add `Silk Worm`
-   ◦ TODO: Add `Infested Leaves`
+• WIP: String gathering
+   ◦ DONE: Add `Silk Worm`
+   ◦ DONE: Add `Infested Leaves`
+   ◦ TODO: Propagate leave infestation to neighbours
+   ◦ TODO: Use original leaves texture
 
 # fs_sieve
 
 • DONE: Remove `Hammers`
+• TODO: Add multi-block sieve support like Ex Nihilo for Minecraft 1.12.2
 
 # fs_tools
 

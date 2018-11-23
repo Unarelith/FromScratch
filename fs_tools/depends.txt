@@ -1,2 +1,1 @@
-default
 fs_core
