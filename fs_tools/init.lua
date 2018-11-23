@@ -16,6 +16,7 @@ fs_tools = rawget(_G, "fs_tools") or {}
 fs_tools.modpath = modpath
 
 dofile(modpath .. "/hammer.lua")
+dofile(modpath .. "/crook.lua")
 dofile(modpath .. "/crafting_tweaks.lua")
 dofile(modpath .. "/crafting.lua")
 
