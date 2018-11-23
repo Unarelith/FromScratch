@@ -41,7 +41,7 @@ for idx = 0, 13 do
 	nodebox_data[5][5] = (-6 + idx) / 16
 
 	local node_name = "fs_barrel:barrel_wood"
-	local description = "Wooden Barrel "..idx
+	local description = "Wooden Barrel"
 	local tiles_data = {
 		-- up, down, right, left, back, front
 		"fs_barrel_dirt.png",
@@ -108,5 +108,5 @@ for idx = 0, 13 do
 	})
 end
 
-minetest.register_alias("fs_barrel:barrel", "fs_barrel:barrel0")
+minetest.register_alias("fs_barrel:barrel_wood", "fs_barrel:barrel_wood0")
 
