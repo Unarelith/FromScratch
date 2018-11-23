@@ -2,7 +2,7 @@ fs_core.silkworm = {}
 
 fs_core.silkworm.on_place = function(itemstack, player, pointed_thing)
 	local node = minetest.get_node(pointed_thing.under)
-	if minetest.get_item_group(node.name, "leaves") > 0 then
+	if minetest.get_item_group(node.name, "leaves") == 1 then
 		node.name = ("fs_core:infested_leaves0")
 		minetest.swap_node(pointed_thing.under, node)
 
@@ -11,9 +11,9 @@ fs_core.silkworm.on_place = function(itemstack, player, pointed_thing)
 		meta:set_string("node_name", "fs_core:infested_leaves")
 
 		minetest.get_node_timer(pointed_thing.under):start(2)
-	end
 
-	itemstack:take_item()
-	return itemstack
+		itemstack:take_item()
+		return itemstack
+	end
 end
 

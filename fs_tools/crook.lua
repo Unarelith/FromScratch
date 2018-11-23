@@ -5,7 +5,8 @@ minetest.register_tool("fs_tools:crook_wood", {
 		full_punch_interval = 1.2,
 		max_drop_level=1,
 		groupcaps={
-			leaves = {times={[1]=0.25}, uses=30, maxlevel=1},
+			leaves          = {times={[1]=0.25}, uses=30, maxlevel=1},
+			infested_leaves = {times={[1]=0.25}, uses=30, maxlevel=1},
 		},
 		damage_groups = {fleshy=2},
 	},

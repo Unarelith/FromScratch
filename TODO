@@ -16,16 +16,16 @@ TODOLIST
 • WIP: String gathering
    ◦ DONE: Add `Silk Worm`
    ◦ DONE: Add `Infested Leaves`
-   ◦ TODO: Propagate leave infestation to neighbours
-   ◦ TODO: Use original leaves texture
+   ◦ DONE: Propagate leave infestation to neighbours
+   ◦ TODO: Use original leaves texture instead of using `default:leaves`
 
 # fs_sieve
 
-• DONE: Remove `Hammers`
 • TODO: Add multi-block sieve support like Ex Nihilo for Minecraft 1.12.2
 
 # fs_tools
 
-• DONE: Add `Hammers`
-• TODO: Add `Crooks`
+• WIP: String gathering
+   ◦ DONE: Add `Crooks`
+   ◦ TODO: Crooks can drop silkworms from `group:leaves`
 

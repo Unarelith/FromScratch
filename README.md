@@ -16,9 +16,15 @@ _Will also be able to contain fluids._ (TODO)
 
 ### fs_core
 
-Core crafting items and helper functions.
+Core items and helper functions like:
+- Silk Worm
+- Infested Leaves
 
-_Will contain Dust and a Silk Worm able to infest tree leaves in order to get string._ (TODO)
+_Will contain Dust and other crafting items._ (TODO)
+
+### fs_crucible
+
+_Will melt Cobblestone into Lava._ (TODO)
 
 ### fs_sieve
 
