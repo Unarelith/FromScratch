@@ -15,6 +15,7 @@ local modpath = minetest.get_modpath(minetest.get_current_modname())
 fs_core = rawget(_G, "fs_core") or {}
 fs_core.modpath = modpath
 
+dofile(modpath .. "/utils.lua")
 dofile(modpath .. "/nodes.lua")
 dofile(modpath .. "/infested_leaves.lua")
 dofile(modpath .. "/silkworm.lua")

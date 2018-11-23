@@ -1,5 +1,7 @@
+local N = 13
+
 local animate_barrel = function(pos, meta, idx)
-	idx = (idx + 1) % 13
+	idx = (idx + 1) % N
 	meta:set_int("idx", idx)
 
 	local node = minetest.get_node(pos)
@@ -12,25 +14,31 @@ end
 
 local update_barrel = function(pos, player, itemstack)
 	local meta = minetest.get_meta(pos)
-	local inv = meta:get_inventory()
 	local idx = meta:get_int("idx")
+	local progress = meta:get_int("progress")
 
-	if idx < 12 and minetest.get_item_group(itemstack:get_name(), "sapling") > 0 then
+	if idx < N - 1 and minetest.get_item_group(itemstack:get_name(), "sapling") > 0 then
 		idx = animate_barrel(pos, meta, idx)
 		itemstack:take_item()
-	elseif idx == 12 then
-		idx = animate_barrel(pos, meta, idx)
-		-- drop_item_stack(pos, "default:dirt")
 
-		if player:get_inventory():room_for_item("main", "default:dirt") then
-			player:get_inventory():add_item("main", "default:dirt")
+		if idx == N - 1 then
+			minetest.get_node_timer(pos):start(1)
 		end
+	elseif idx == N - 1 and progress == 100 then
+		idx = animate_barrel(pos, meta, idx)
+
+		local handstack = not itemstack:is_empty() and itemstack:add_item("default:dirt")
+		if not handstack:is_empty() and player:get_inventory():room_for_item("main", "default:dirt") then
+			player:get_inventory():add_item("main", handstack)
+		end
+
+		meta:set_int("progress", 0)
 	end
 
 	return itemstack
 end
 
-for idx = 0, 13 do
+for idx = 0, N do
 	local nodebox_data = {
 		{-6/16, -8/16, -6/16,  6/16,  6/16, -5/16},
 		{-6/16, -8/16,  5/16,  6/16,  6/16,  6/16},
@@ -79,10 +87,26 @@ for idx = 0, 13 do
 		on_construct = function(pos)
 			local meta = minetest.get_meta(pos)
 			meta:set_int("idx", idx)
+			meta:set_int("progress", 0)
 			meta:set_string("node_name", node_name)
+		end,
 
-			local inv = meta:get_inventory()
-			inv:set_size('dst', 1)
+		on_timer = function(pos, elapsed)
+			local meta = minetest.get_meta(pos)
+			local progress = meta:get_int("progress") + 10
+			meta:set_int("progress", progress)
+
+			if progress < 100 then
+				minetest.override_item(node_name..idx, {
+					description = description .. " (" .. progress .. "%)"
+				})
+			else
+				minetest.override_item(node_name..idx, {
+					description = description
+				})
+			end
+
+			return progress < 100
 		end,
 
 		after_place_node = function(pos, placer)

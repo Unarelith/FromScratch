@@ -57,27 +57,6 @@ local update_sieve = function(pos)
 	end
 end
 
-local drop_item_stack = function(pos, stack)
-	local count, name
-	if type(stack) == "string" then
-		count = 1
-		name = stack
-	else
-		count = stack:get_count()
-		name = stack:get_name()
-	end
-	for i = 1, count do
-		local obj = minetest.add_item(pos, name)
-		if obj ~= nil then
-			obj:get_luaentity().collect = true
-			obj:get_luaentity().age = age
-			obj:setvelocity({x = math.random(-3, 3),
-			                 y = math.random(2, 5),
-			                 z = math.random(-3, 3)})
-		end
-	end
-end
-
 for idx = 0, 4 do
 	local nodebox_data = {
 		{-8/16, -8/16, -8/16,  8/16, 4/16, -6/16},
@@ -168,7 +147,7 @@ for idx = 0, 4 do
 			if idx == 2 and not inv:is_empty("dst") then
 				local list = inv:get_list("dst")
 				for _, stack in ipairs(list) do
-					drop_item_stack(pos, stack)
+					fs_core.drop_item_stack(pos, stack)
 				end
 				inv:set_list("dst", {})
 			end
