@@ -1,0 +1,1 @@
+This mod contains barrels. They can be used as a fluid container or to compost leaves and saplings into dirt.

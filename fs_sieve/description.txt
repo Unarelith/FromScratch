@@ -1,1 +1,1 @@
-This mod includes a hammer to produce gravel from Cobblestone and a sieve to sift gravel to find ores.
+This mod includes a sieve to sift gravel, sand and dust to find ores.
