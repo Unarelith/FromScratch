@@ -20,8 +20,7 @@ local modpath = minetest.get_modpath(minetest.get_current_modname())
 fs_sieve = rawget(_G, "fs_sieve") or {}
 fs_sieve.modpath = modpath
 
-dofile(modpath .. "/hammer.lua")
-dofile(modpath .. "/ores.lua")
+dofile(modpath .. "/ore_probability.lua")
 dofile(modpath .. "/sieve.lua")
 dofile(modpath .. "/crafting.lua")
 dofile(modpath .. "/nodes.lua")

@@ -1,6 +1,6 @@
-minetest.register_tool("fs_sieve:hammer_wood", {
+minetest.register_tool("fs_tools:hammer_wood", {
 	description = "Wooden Hammer",
-	inventory_image = "fs_sieve_hammer_wood.png",
+	inventory_image = "fs_tools_hammer_wood.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,
 		max_drop_level=0,
@@ -14,9 +14,9 @@ minetest.register_tool("fs_sieve:hammer_wood", {
 	sound = {breaks = "default_tool_breaks"},
 })
 
-minetest.register_tool("fs_sieve:hammer_stone", {
+minetest.register_tool("fs_tools:hammer_stone", {
 	description = "Stone Hammer",
-	inventory_image = "fs_sieve_hammer_stone.png",
+	inventory_image = "fs_tools_hammer_stone.png",
 	tool_capabilities = {
 		full_punch_interval = 1.3,
 		max_drop_level=0,
@@ -29,9 +29,9 @@ minetest.register_tool("fs_sieve:hammer_stone", {
 	sound = {breaks = "default_tool_breaks"},
 })
 
-minetest.register_tool("fs_sieve:hammer_iron", {
+minetest.register_tool("fs_tools:hammer_iron", {
 	description = "Iron Hammer",
-	inventory_image = "fs_sieve_hammer_iron.png",
+	inventory_image = "fs_tools_hammer_iron.png",
 	tool_capabilities = {
 		full_punch_interval = 1.0,
 		max_drop_level=1,
@@ -44,9 +44,9 @@ minetest.register_tool("fs_sieve:hammer_iron", {
 	sound = {breaks = "default_tool_breaks"},
 })
 
-minetest.register_tool("fs_sieve:hammer_diamond", {
+minetest.register_tool("fs_tools:hammer_diamond", {
 	description = "Diamond Hammer",
-	inventory_image = "fs_sieve_hammer_diamond.png",
+	inventory_image = "fs_tools_hammer_diamond.png",
 	tool_capabilities = {
 		full_punch_interval = 0.9,
 		max_drop_level=3,
@@ -57,24 +57,5 @@ minetest.register_tool("fs_sieve:hammer_diamond", {
 		damage_groups = {fleshy=5},
 	},
 	sound = {breaks = "default_tool_breaks"},
-})
-
-minetest.override_item("default:cobble", {drop = {
-	max_items = 1,
-	items = {
-		{
-			tools = {"~fs_sieve:hammer_"},
-			items = {"default:gravel"}
-		},
-		{
-			items = {"default:cobble"}
-		}
-	}
-}})
-
-local gravel = minetest.registered_nodes["default:gravel"]
-table.insert(gravel.drop.items, 1, {
-	tools = {"~fs_sieve:hammer_"},
-	items = {"default:sand"}
 })
 
