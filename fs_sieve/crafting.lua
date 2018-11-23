@@ -1,9 +1,9 @@
 minetest.register_craft({
 	output = "fs_sieve:sieve",
 	recipe = {
-		{"group:wood", "",                      "group:wood"},
-		{"group:wood", "default:steel_ingot",   "group:wood"},
-		{"group:wood", "",                      "group:wood"},
+		{"group:wood",  "fs_core:silkmesh", "group:wood"},
+		{"group:wood",  "fs_core:silkmesh", "group:wood"},
+		{"group:stick", "",                 "group:stick"},
 	},
 })
 

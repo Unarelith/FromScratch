@@ -2,14 +2,22 @@ TODOLIST
 
 # fs_barrel
 
+• TODO: `Dirt` composting timer
 • TODO: Add stone barrel
 • TODO: Fluid handling
    ◦ TODO: In-out with buckets
    ◦ TODO: Fluid display
+• TODO: Item/fluid interaction
+   ◦ TODO: Dust + Water = Clay
+   ◦ TODO: Water + Lava = Obsidian
+   ◦ TODO: Water + Ancient Spores = Witch Water
+   ◦ TODO: Sand + Witch Water = Soulsand
 
 # fs_crucible
 
-• TODO: Add crucible
+• TODO: Add crucibles
+   ◦ TODO: Add `Wooden Crucible` to get `Water` from `Saplings`
+   ◦ TODO: Add `Unfired Crucible` and `Crucible` to get `Lava` from `Cobblestone`
 
 # fs_core
 
@@ -18,9 +26,14 @@ TODOLIST
    ◦ DONE: Add `Infested Leaves`
    ◦ DONE: Propagate leave infestation to neighbours
    ◦ TODO: Use original leaves texture instead of using `default:leaves`
+• WIP: Add blocks
+   ◦ DONE: Add `Dust`
+   ◦ TODO: Add `Compressed Sand` and `Compressed Dust`
 
 # fs_sieve
 
+• TODO: Add `Sand` and `Dust` support
+• TODO: Add ore pieces and various other items
 • TODO: Add multi-block sieve support like Ex Nihilo for Minecraft 1.12.2
 
 # fs_tools

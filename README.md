@@ -17,10 +17,17 @@ _Will also be able to contain fluids._ (TODO)
 ### fs_core
 
 Core items and helper functions like:
+- Dust
+- Silk Mesh
 - Silk Worm
 - Infested Leaves
 
-_Will contain Dust and other crafting items._ (TODO)
+You can put a Silk Worm in Leaves to create Infested Leaves.
+
+Once a Leave is fully infested, you can dig it to get String.
+
+**Warning:** Silk Worms will propagate to neighbour Leaves.
+
 
 ### fs_crucible
 
@@ -37,7 +44,7 @@ _Will support Sand and Dust too._ (TODO)
 Use a hammer to smash blocks:
 - Cobble -> Gravel
 - Gravel -> Sand
-- _Sand -> Dust_ (TODO)
+- Sand -> Dust
 
 ## Dependencies
 
