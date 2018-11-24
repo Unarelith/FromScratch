@@ -53,15 +53,15 @@ for idx = 0, N do
 	local tiles_data = {
 		-- up, down, right, left, back, front
 		"fs_barrel_dirt.png",
-		"fs_barrel_barrel.png",
-		"fs_barrel_barrel.png",
-		"fs_barrel_barrel.png",
-		"fs_barrel_barrel.png",
-		"fs_barrel_barrel.png",
+		"default_wood.png",
+		"default_wood.png",
+		"default_wood.png",
+		"default_wood.png",
+		"default_wood.png",
 	}
 
 	if idx == 0 then
-		tiles_data[1] = "fs_barrel_barrel.png"
+		tiles_data[1] = "default_wood.png"
 		not_in_creative_inventory = 0
 	else
 		not_in_creative_inventory = 1

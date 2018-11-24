@@ -21,11 +21,11 @@ TODOLIST
 
 # fs_core
 
-• WIP: String gathering
+• DONE: String gathering
    ◦ DONE: Add `Silk Worm`
    ◦ DONE: Add `Infested Leaves`
    ◦ DONE: Propagate leave infestation to neighbours
-   ◦ TODO: Use original leaves texture instead of using `default:leaves`
+   ◦ DONE: Use original leaves texture instead of using `default:leaves`
 • WIP: Add blocks
    ◦ DONE: Add `Dust`
    ◦ TODO: Add `Compressed Sand` and `Compressed Dust`
