@@ -1,3 +1,15 @@
+--[[
+
+	fs_core
+	================
+
+	Copyright (C) 2018-2019 Quentin Bazin
+
+	LGPLv2.1+
+	See LICENSE.txt for more information
+
+]]--
+
 local N = 10
 
 fs_core.leaves = {}

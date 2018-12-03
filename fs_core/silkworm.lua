@@ -1,3 +1,15 @@
+--[[
+
+	fs_core
+	================
+
+	Copyright (C) 2018-2019 Quentin Bazin
+
+	LGPLv2.1+
+	See LICENSE.txt for more information
+
+]]--
+
 fs_core.silkworm = {}
 
 fs_core.silkworm.on_place = function(itemstack, player, pointed_thing)

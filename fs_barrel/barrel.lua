@@ -1,3 +1,15 @@
+--[[
+
+	fs_barrel
+	================
+
+	Copyright (C) 2018-2019 Quentin Bazin
+
+	LGPLv2.1+
+	See LICENSE.txt for more information
+
+]]--
+
 local N = 13
 
 local animate_barrel = function(meta, idx)
@@ -79,90 +91,95 @@ minetest.register_entity("fs_barrel:barrel_entity", {
 	}
 })
 
-minetest.register_node("fs_barrel:barrel_wood", {
-	description = "Wooden Barrel",
-	drawtype = "nodebox",
+local register_barrel = function(node_name, description, texture)
+	minetest.register_node(node_name, {
+		description = description,
+		drawtype = "nodebox",
 
-	tiles = {
-		-- up, down, right, left, back, front
-		"default_wood.png",
-		"default_wood.png",
-		"default_wood.png",
-		"default_wood.png",
-		"default_wood.png",
-		"default_wood.png",
-	},
+		tiles = {
+			-- up, down, right, left, back, front
+			texture,
+			texture,
+			texture,
+			texture,
+			texture,
+			texture,
+		},
 
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-6/16, -8/16, -6/16,  6/16,  6/16, -5/16},
-			{-6/16, -8/16,  5/16,  6/16,  6/16,  6/16},
-			{-6/16, -8/16, -6/16, -5/16,  6/16,  6/16},
-			{ 5/16, -8/16, -6/16,  6/16,  6/16,  6/16},
-			{-5/16, -8/16, -5/16,  5/16, -6/16,  5/16},
-		}
-	},
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-6/16, -8/16, -6/16,  6/16,  6/16, -5/16},
+				{-6/16, -8/16,  5/16,  6/16,  6/16,  6/16},
+				{-6/16, -8/16, -6/16, -5/16,  6/16,  6/16},
+				{ 5/16, -8/16, -6/16,  6/16,  6/16,  6/16},
+				{-5/16, -8/16, -5/16,  5/16, -6/16,  5/16},
+			}
+		},
 
-	selection_box = {
-		type = "fixed",
-		fixed = {-6/16, -8/16, -6/16,
-				  6/16,  6/16,  6/16},
-	},
+		selection_box = {
+			type = "fixed",
+			fixed = {-6/16, -8/16, -6/16,
+					  6/16,  6/16,  6/16},
+		},
 
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_int("idx", 0)
-		meta:set_int("progress", 0)
-		meta:set_string("node_name", node_name)
+		on_construct = function(pos)
+			local meta = minetest.get_meta(pos)
+			meta:set_int("idx", 0)
+			meta:set_int("progress", 0)
+			meta:set_string("node_name", node_name)
 
-		minetest.add_entity(pos, "fs_barrel:barrel_entity")
-		fs_barrel.update_entity(pos, 0, entity)
-	end,
+			minetest.add_entity(pos, "fs_barrel:barrel_entity")
+			fs_barrel.update_entity(pos, 0, entity)
+		end,
 
-	on_destruct = function(pos)
-		local e = fs_barrel.get_entity(pos)
-		if e then
-			e:remove()
-		end
-	end,
+		on_destruct = function(pos)
+			local e = fs_barrel.get_entity(pos)
+			if e then
+				e:remove()
+			end
+		end,
 
-	on_timer = function(pos, elapsed)
-		local meta = minetest.get_meta(pos)
-		local progress = meta:get_int("progress") + 10
-		meta:set_int("progress", progress)
+		on_timer = function(pos, elapsed)
+			local meta = minetest.get_meta(pos)
+			local progress = meta:get_int("progress") + 10
+			meta:set_int("progress", progress)
 
-		-- FIXME: Show a small tooltip instead
-		-- if progress < 100 then
-		-- 	minetest.override_item(node_name, {
-		-- 		description = description .. " (" .. progress .. "%)"
-		-- 	})
-		-- else
-		-- 	minetest.override_item(node_name, {
-		-- 		description = description
-		-- 	})
-		-- end
+			-- FIXME: Show a small tooltip instead
+			-- if progress < 100 then
+			-- 	minetest.override_item(node_name, {
+			-- 		description = description .. " (" .. progress .. "%)"
+			-- 	})
+			-- else
+			-- 	minetest.override_item(node_name, {
+			-- 		description = description
+			-- 	})
+			-- end
 
-		return progress < 100
-	end,
+			return progress < 100
+		end,
 
-	-- after_place_node = function(pos, placer)
-	-- 	local meta = minetest.get_meta(pos)
-	-- 	meta:set_string("infotext", "Wooden Barrel")
-	-- end,
+		-- after_place_node = function(pos, placer)
+		-- 	local meta = minetest.get_meta(pos)
+		-- 	meta:set_string("infotext", "Wooden Barrel")
+		-- end,
 
-	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-		return fs_barrel.update(pos, player, itemstack)
-	end,
+		on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+			return fs_barrel.update(pos, player, itemstack)
+		end,
 
-	paramtype = "light",
-	sounds = default.node_sound_wood_defaults(),
-	paramtype2 = "facedir",
-	sunlight_propagates = true,
-	is_ground_content = false,
-	groups = {
-		choppy = 2,
-		cracky = 1
-	},
-})
+		paramtype = "light",
+		sounds = default.node_sound_wood_defaults(),
+		paramtype2 = "facedir",
+		sunlight_propagates = true,
+		is_ground_content = false,
+		groups = {
+			choppy = 2,
+			cracky = 1
+		},
+	})
+end
+
+register_barrel("fs_barrel:barrel_wood", "Wooden Barrel", "default_wood.png")
+register_barrel("fs_barrel:barrel_stone", "Stone Barrel", "default_stone.png")
 

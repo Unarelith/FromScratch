@@ -7,3 +7,12 @@ minetest.register_craft({
 	},
 })
 
+minetest.register_craft({
+	output = "fs_barrel:barrel_stone",
+	recipe = {
+		{"default:stone", "",              "default:stone"},
+		{"default:stone", "",              "default:stone"},
+		{"default:stone", "default:stone", "default:stone"},
+	},
+})
+
