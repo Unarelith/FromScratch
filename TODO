@@ -3,7 +3,7 @@ TODOLIST
 # fs_barrel
 
 • DONE: `Dirt` composting timer
-• TODO: Add stone barrel
+• DONE: Add stone barrel
 • TODO: Fluid handling
    ◦ TODO: In-out with buckets
    ◦ TODO: Fluid display
@@ -15,9 +15,9 @@ TODOLIST
 
 # fs_crucible
 
-• TODO: Add crucibles
+• WIP: Add crucibles
+   ◦ DONE: Add `Crucible` to get `Lava` from `Cobblestone`
    ◦ TODO: Add `Wooden Crucible` to get `Water` from `Saplings`
-   ◦ TODO: Add `Unfired Crucible` and `Crucible` to get `Lava` from `Cobblestone`
 
 # fs_core
 
@@ -32,7 +32,7 @@ TODOLIST
 
 # fs_sieve
 
-• TODO: Add `Sand` and `Dust` support
+• TODO: Add `Dirt`, `Sand` and `Dust` support
 • TODO: Add ore pieces and various other items
 • TODO: Add multi-block sieve support like Ex Nihilo for Minecraft 1.12.2
 

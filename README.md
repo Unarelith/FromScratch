@@ -1,10 +1,10 @@
 # FromScratch
 
-FromScratch is a modpack for Minetest which provides a way to generate most of resources from a single tree.
+FromScratch is a modpack for Minetest which provides a way to generate most resources from a single tree.
 
 This modpack is heavily inspirated by the Ex Nihilo mod for Minecraft.
 
-The mod `fs_sieve` is currently a fork of the `gravelsieve` mod by JoSt.
+The mod `fs_sieve` is a fork of `gravelsieve` by JoSt.
 
 ## Mods
 
@@ -13,6 +13,10 @@ The mod `fs_sieve` is currently a fork of the `gravelsieve` mod by JoSt.
 Compost saplings to make dirt.
 
 _Will also be able to contain fluids._ (TODO)
+
+Fluid/item interaction is also planned, for example:
+- _Dust + Water = Clay_ (TODO)
+- _Water + Lava = Obsidian_ (TODO)
 
 ### fs_core
 
@@ -26,18 +30,23 @@ You can put a Silk Worm in Leaves to create Infested Leaves.
 
 Once a Leave is fully infested, you can dig it to get String.
 
-**Warning:** Silk Worms will propagate to neighbour Leaves.
-
+**Warning:** Silk Worms will propagate to all neighbour Leaves.
 
 ### fs_crucible
 
-_Will melt Cobblestone into Lava._ (TODO)
+Put cobblestone into the crucible and put a torch under it to melt it.
+
+_Another crucible, made of wood, will be able to make water from saplings._ (TODO)
+
+The crucibles can hold 2 buckets of liquid and 8 items maximum.
 
 ### fs_sieve
 
 Use a sieve to get ores from Gravel.
 
-_Will support Sand and Dust too._ (TODO)
+You will need String to make a Silk Mesh.
+
+_Will support Dirt, Sand and Dust too._ (TODO)
 
 ### fs_tools
 
@@ -46,11 +55,19 @@ Use a hammer to smash blocks:
 - Gravel -> Sand
 - Sand -> Dust
 
+Use a crook to get extra leaves drop:
+- _Leaves -> Silk Worms_ (TODO)
+- Infested Leaves -> String
+
 ## Dependencies
 
 - default
 - farming (for `farming:string`)
 - moreblocks (optional)
+
+## Screenshot
+
+![](https://i.goopics.net/yDYlP.png)
 
 ## License
 

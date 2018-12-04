@@ -58,6 +58,7 @@ local update_sieve = function(pos)
 end
 
 for idx = 0, 4 do
+	-- FIXME: Use nodebox to draw sieve mesh
 	local nodebox_data = {
 		{-8/16, -8/16, -8/16,  8/16, 4/16, -6/16},
 		{-8/16, -8/16,  6/16,  8/16, 4/16,  8/16},

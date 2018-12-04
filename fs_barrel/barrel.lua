@@ -18,6 +18,7 @@ local animate_barrel = function(meta, idx)
 	return idx
 end
 
+-- FIXME: Move this to core
 fs_barrel.get_entity = function(pos)
 	local objects = minetest.get_objects_inside_radius(pos, 0.5)
 	for _, obj in ipairs(objects) do
@@ -129,7 +130,7 @@ local register_barrel = function(node_name, description, texture)
 			meta:set_int("progress", 0)
 			meta:set_string("node_name", node_name)
 
-			minetest.add_entity(pos, "fs_barrel:barrel_entity")
+			local entity = minetest.add_entity(pos, "fs_barrel:barrel_entity")
 			fs_barrel.update_entity(pos, 0, entity)
 		end,
 
