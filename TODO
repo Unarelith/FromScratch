@@ -1,5 +1,9 @@
 TODOLIST
 
+# Issues
+
+• FIXME: Entity-based nodes are not updated correctly on login
+
 # fs_barrel
 
 • DONE: `Dirt` composting timer

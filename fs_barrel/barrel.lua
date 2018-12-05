@@ -53,7 +53,9 @@ fs_barrel.update = function(pos, player, itemstack)
 	local idx = meta:get_int("idx")
 	local progress = meta:get_int("progress")
 
-	if idx < N - 1 and minetest.get_item_group(itemstack:get_name(), "sapling") > 0 then
+	local is_sapling = minetest.get_item_group(itemstack:get_name(), "sapling") > 0
+	local is_leaves = minetest.get_item_group(itemstack:get_name(), "leaves") > 0
+	if idx < N - 1 and (is_sapling or is_leaves) then
 		idx = animate_barrel(meta, idx)
 		itemstack:take_item()
 
@@ -63,10 +65,15 @@ fs_barrel.update = function(pos, player, itemstack)
 	elseif idx == N - 1 and progress == 100 then
 		idx = animate_barrel(meta, idx)
 
-		local handstack = not itemstack:is_empty() and itemstack:add_item("default:dirt")
+		local handstack = ItemStack("default:dirt")
+		if itemstack:is_empty() or itemstack:get_name() == handstack:get_name() then
+			handstack = itemstack:add_item(handstack)
+		end
+
 		if not handstack:is_empty() and player:get_inventory():room_for_item("main", "default:dirt") then
 			player:get_inventory():add_item("main", handstack)
 		end
+
 
 		meta:set_int("progress", 0)
 	end

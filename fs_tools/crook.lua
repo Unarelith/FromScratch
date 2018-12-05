@@ -1,5 +1,5 @@
 minetest.register_tool("fs_tools:crook_wood", {
-	description = "Wooden Crook",
+	description = "Wooden Crook\nUse on leaves to get Silk Worms",
 	inventory_image = "fs_tools_crook_wood.png",
 	tool_capabilities = {
 		full_punch_interval = 1.2,

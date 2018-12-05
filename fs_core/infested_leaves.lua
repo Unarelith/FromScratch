@@ -100,6 +100,7 @@ fs_core.register_infested_leaves_type = function(leaves_name, node_name, texture
 	minetest.register_alias(node_name, node_name..(N - 1))
 end
 
+-- FIXME: Do this in a more generic way, coordinated with the crook leave support
 fs_core.register_infested_leaves_type("default:leaves",        "fs_core:infested_leaves",        "default_leaves.png",        "default_leaves_simple.png")
 fs_core.register_infested_leaves_type("default:jungleleaves",  "fs_core:infested_leaves_jungle", "default_jungleleaves.png",  "default_jungleleaves_simple.png")
 fs_core.register_infested_leaves_type("default:acacia_leaves", "fs_core:infested_leaves_acacia", "default_acacia_leaves.png", "default_acacia_leaves_simple.png")
