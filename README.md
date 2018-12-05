@@ -56,7 +56,7 @@ Use a hammer to smash blocks:
 - Sand -> Dust
 
 Use a crook to get extra leaves drop:
-- _Leaves -> Silk Worms_ (TODO)
+- Leaves -> Silk Worms
 - Infested Leaves -> String
 
 ## Dependencies

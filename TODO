@@ -7,11 +7,12 @@ TODOLIST
 • TODO: Fluid handling
    ◦ TODO: In-out with buckets
    ◦ TODO: Fluid display
+   ◦ TODO: `fluid_lib` support
 • TODO: Item/fluid interaction
-   ◦ TODO: Dust + Water = Clay
-   ◦ TODO: Water + Lava = Obsidian
-   ◦ TODO: Water + Ancient Spores = Witch Water
-   ◦ TODO: Sand + Witch Water = Soulsand
+   ◦ TODO: `Dust` + `Water` = `Clay`
+   ◦ TODO: `Water` + `Lava` = `Obsidian`
+   ◦ TODO: `Water` + `Ancient Spores` = `Witch Water`
+   ◦ TODO: `Sand` + `Witch Water` = `Soulsand`
 
 # fs_crucible
 
@@ -29,16 +30,20 @@ TODOLIST
 • WIP: Add blocks
    ◦ DONE: Add `Dust`
    ◦ TODO: Add `Compressed Sand` and `Compressed Dust`
+• TODO: Add craft items
+   ◦ TODO: Add things like `Ancient Spores` or `Grass Seeds`
 
 # fs_sieve
 
+• TODO: Use an entity instead of multiple nodes
 • TODO: Add `Dirt`, `Sand` and `Dust` support
+• TODO: Add a new entity for the silkmesh (maybe wait for `entity.visual = “nodebox”`)
 • TODO: Add ore pieces and various other items
 • TODO: Add multi-block sieve support like Ex Nihilo for Minecraft 1.12.2
 
 # fs_tools
 
-• WIP: String gathering
+• DONE: String gathering
    ◦ DONE: Add `Crooks`
-   ◦ TODO: Crooks can drop silkworms from `group:leaves`
+   ◦ DONE: Crooks can drop silkworms from `group:leaves`
 

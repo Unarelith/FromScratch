@@ -30,3 +30,28 @@ table.insert(gravel.drop.items, 1, {
 	items = {"default:sand"}
 })
 
+local leaves_types = {
+	-- minetest_game
+	"default:leaves",
+	"default:jungleleaves",
+	"default:pine_needles",
+	"default:acacia_leaves",
+	"default:aspen_leaves",
+	"default:bush_leaves",
+	"default:blueberry_bush_leaves_with_berries",
+	"default:blueberry_bush_leaves",
+	"default:acacia_bush_leaves",
+	"default:pine_bush_needles",
+}
+
+for _, v in ipairs(leaves_types) do
+	local leaves = minetest.registered_nodes[v]
+	if leaves then
+		table.insert(leaves.drop.items, 1, {
+			tools = {"~fs_tools:crook_"},
+			items = {'fs_core:silkworm'},
+			rarity = 10,
+		})
+	end
+end
+
