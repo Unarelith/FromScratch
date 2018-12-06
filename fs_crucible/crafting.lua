@@ -7,3 +7,12 @@ minetest.register_craft({
 	},
 })
 
+minetest.register_craft({
+	output = "fs_crucible:crucible_wood",
+	recipe = {
+		{"default:tree", "",             "default:tree"},
+		{"default:tree", "",             "default:tree"},
+		{"default:tree", "default:tree", "default:tree"},
+	},
+})
+

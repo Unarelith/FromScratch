@@ -70,7 +70,7 @@ fs_barrel.update = function(pos, player, itemstack)
 			handstack = itemstack:add_item(handstack)
 		end
 
-		if not handstack:is_empty() and player:get_inventory():room_for_item("main", "default:dirt") then
+		if not handstack:is_empty() and player:get_inventory():room_for_item("main", handstack) then
 			player:get_inventory():add_item("main", handstack)
 		end
 

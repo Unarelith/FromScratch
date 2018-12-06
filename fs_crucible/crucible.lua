@@ -21,16 +21,20 @@ local get_entity = function(pos)
 	end
 end
 
-local update_entity = function(pos, stone_amount, lava_amount, entity)
+local update_entity = function(pos, input_amount, fluid_amount, input, fluid, entity)
 	entity = entity or get_entity(pos)
 	if entity then
 		local texture, height
-		if stone_amount > 0 then
-			texture = "default:cobble"
+		if input_amount > 0 then
+			if fluid == "water" then
+				texture = input
+			else
+				texture = input
+			end
 			height = 14 / 16
 		else
-			texture = "default:lava_source"
-			height = 14 / 16 * lava_amount / 2000
+			texture = "default:"..fluid.."_source"
+			height = 14 / 16 * fluid_amount / 2000
 		end
 
 		pos.y = pos.y - 6 / 16 + height / 2
@@ -44,29 +48,32 @@ local update_entity = function(pos, stone_amount, lava_amount, entity)
 				y = 0.666 * height
 			},
 
-			is_visible = stone_amount > 0 or lava_amount > 0
+			is_visible = input_amount > 0 or fluid_amount > 0
 		})
 	end
 end
 
 local on_timer = function(pos, elapsed)
+	local meta = minetest.get_meta(pos)
+	local input = meta:get_string("input_name")
+	local fluid = meta:get_string("fluid_name")
+
 	local heat_source = minetest.get_node({x = pos.x, y = pos.y - 1, z = pos.z})
-	if heat_source.name ~= "default:torch" then
+	if fluid == "lava" and heat_source.name ~= "default:torch" then
 		return true
 	end
 
-	local meta = minetest.get_meta(pos)
-	local stone_amount = meta:get_int("stone")
-	local lava_amount = meta:get_int("lava")
-	if stone_amount == 0 or lava_amount >= 2000 then
+	local input_amount = meta:get_int("input")
+	local fluid_amount = meta:get_int("fluid")
+	if input_amount == 0 or fluid_amount >= 2000 then
 		return false
 	end
 
-	meta:set_int("stone", stone_amount - 1)
-	meta:set_int("lava", lava_amount + 100)
-	update_entity(pos, stone_amount - 1, lava_amount + 100)
+	meta:set_int("input", input_amount - 1)
+	meta:set_int("fluid", fluid_amount + 100)
+	update_entity(pos, input_amount - 1, fluid_amount + 100, input, fluid)
 
-	return lava_amount < 2000 and stone_amount > 0
+	return fluid_amount < 2000 and input_amount > 0
 end
 
 minetest.register_entity("fs_crucible:crucible_entity", {
@@ -85,9 +92,107 @@ minetest.register_entity("fs_crucible:crucible_entity", {
 	}
 })
 
-minetest.register_node("fs_crucible:crucible", {
-	description = "Crucible",
-	drawtype = "nodebox",
+fs_crucible.register_crucible = function(name, info)
+	minetest.register_node(name, {
+		description = info.name,
+		drawtype = "nodebox",
+
+		tiles = info.tiles,
+
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-8/16, -8/16, -8/16,  8/16,  8/16, -7/16},
+				{-8/16, -8/16,  7/16,  8/16,  8/16,  8/16},
+				{-8/16, -8/16, -8/16, -7/16,  8/16,  8/16},
+				{ 7/16, -8/16, -8/16,  8/16,  8/16,  8/16},
+				{-7/16, -7/16, -7/16,  7/16, -6/16,  7/16},
+			}
+		},
+
+		selection_box = {
+			type = "fixed",
+			fixed = {-8/16, -8/16, -8/16, 8/16, 8/16, 8/16},
+		},
+
+		on_timer = on_timer,
+
+		on_construct = function(pos)
+			local meta = minetest.get_meta(pos)
+			meta:set_int("input", 0)
+			meta:set_int("fluid", 0)
+			meta:set_string("input_name", info.input)
+			meta:set_string("fluid_name", info.fluid)
+
+			local entity = minetest.add_entity(pos, "fs_crucible:crucible_entity")
+			update_entity(pos, 0, 0, info.input, info.fluid, entity)
+		end,
+
+		on_destruct = function(pos)
+			local e = get_entity(pos)
+			if e then
+				e:remove()
+			end
+		end,
+
+		on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+			local meta = minetest.get_meta(pos)
+			local input_amount = meta:get_int("input")
+			local fluid_amount = meta:get_int("fluid")
+			local input = meta:get_string("input_name")
+			local fluid = meta:get_string("fluid_name")
+
+			if fluid_amount > 1000 and itemstack:get_name() == "bucket:bucket_empty" then
+				itemstack:take_item()
+
+				local handstack = ItemStack("bucket:bucket_"..fluid)
+				if itemstack:is_empty() then
+					handstack = itemstack:add_item(handstack)
+				end
+
+				if not handstack:is_empty() and player:get_inventory():room_for_item("main", handstack) then
+					clicker:get_inventory():add_item("main", handstack)
+
+					meta:set_int("fluid", fluid_amount - 1000)
+					update_entity(pos, input_amount, fluid_amount - 1000, input, fluid)
+				end
+
+				if fluid_amount >= 2000 and input_amount > 1 then
+					local timer = minetest.get_node_timer(pos)
+					if not timer:is_started() then
+						timer:start(4)
+					end
+				end
+			elseif input_amount < 8 and itemstack:get_name() == input then
+				itemstack:take_item()
+				meta:set_int("input", input_amount + 1)
+				update_entity(pos, input_amount + 1, fluid_amount, input, fluid)
+
+				local timer = minetest.get_node_timer(pos)
+				if not timer:is_started() then
+					timer:start(4)
+				end
+			end
+
+			return itemstack
+		end,
+
+		paramtype = "light",
+		sounds = default.node_sound_wood_defaults(),
+		paramtype2 = "facedir",
+		sunlight_propagates = true,
+		is_ground_content = false,
+		groups = {
+			choppy = 2,
+			cracky = 1
+		},
+	})
+end
+
+fs_crucible.register_crucible("fs_crucible:crucible", {
+	name = "Crucible",
+	input = "default:cobble",
+	fluid = "lava",
 
 	tiles = {
 		-- up, down, right, left, back, front
@@ -98,80 +203,20 @@ minetest.register_node("fs_crucible:crucible", {
 		"fs_crucible_side.png",
 		"fs_crucible_side.png"
 	},
+})
 
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-8/16, -8/16, -8/16,  8/16,  8/16, -7/16},
-			{-8/16, -8/16,  7/16,  8/16,  8/16,  8/16},
-			{-8/16, -8/16, -8/16, -7/16,  8/16,  8/16},
-			{ 7/16, -8/16, -8/16,  8/16,  8/16,  8/16},
-			{-7/16, -7/16, -7/16,  7/16, -6/16,  7/16},
-		}
-	},
+fs_crucible.register_crucible("fs_crucible:crucible_wood", {
+	name = "Wooden Crucible",
+	input = "default:leaves",
+	fluid = "water",
 
-	selection_box = {
-		type = "fixed",
-		fixed = {-8/16, -8/16, -8/16, 8/16, 8/16, 8/16},
-	},
-
-	on_timer = on_timer,
-
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_int("stone", 0)
-		meta:set_int("lava", 0)
-
-		local entity = minetest.add_entity(pos, "fs_crucible:crucible_entity")
-		update_entity(pos, 0, 0, entity)
-	end,
-
-	on_destruct = function(pos)
-		local e = get_entity(pos)
-		if e then
-			e:remove()
-		end
-	end,
-
-	on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-		local meta = minetest.get_meta(pos)
-		local stone_amount = meta:get_int("stone")
-		local lava_amount = meta:get_int("lava")
-
-		if lava_amount > 1000 and itemstack:get_name() == "bucket:bucket_empty" then
-			itemstack:take_item()
-			clicker:get_inventory():add_item("main", "bucket:bucket_lava")
-			meta:set_int("lava", lava_amount - 1000)
-			update_entity(pos, stone_amount, lava_amount - 1000)
-
-			if lava_amount >= 2000 and stone_amount > 1 then
-				local timer = minetest.get_node_timer(pos)
-				if not timer:is_started() then
-					timer:start(4)
-				end
-			end
-		elseif stone_amount < 8 and itemstack:get_name() == "default:cobble" then
-			itemstack:take_item()
-			meta:set_int("stone", stone_amount + 1)
-			update_entity(pos, stone_amount + 1, lava_amount)
-
-			local timer = minetest.get_node_timer(pos)
-			if not timer:is_started() then
-				timer:start(4)
-			end
-		end
-
-		return itemstack
-	end,
-
-	paramtype = "light",
-	sounds = default.node_sound_wood_defaults(),
-	paramtype2 = "facedir",
-	sunlight_propagates = true,
-	is_ground_content = false,
-	groups = {
-		choppy = 2,
-		cracky = 1
+	tiles = {
+		"default_tree_top.png",
+		"default_tree_top.png",
+		"default_tree.png",
+		"default_tree.png",
+		"default_tree.png",
+		"default_tree.png",
 	},
 })
 
