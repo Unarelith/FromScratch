@@ -60,24 +60,40 @@ end
 for idx = 0, 4 do
 	-- FIXME: Use nodebox to draw sieve mesh
 	local nodebox_data = {
-		{-8/16, -8/16, -8/16,  8/16, 4/16, -6/16},
-		{-8/16, -8/16,  6/16,  8/16, 4/16,  8/16},
-		{-8/16, -8/16, -8/16, -6/16, 4/16,  8/16},
-		{ 6/16, -8/16, -8/16,  8/16, 4/16,  8/16},
-		{-6/16, -2/16, -6/16,  6/16, 8/16,  6/16},
+		-- {-8/16, -8/16, -8/16,  8/16, 4/16, -6/16},
+		-- {-8/16, -8/16,  6/16,  8/16, 4/16,  8/16},
+		-- {-8/16, -8/16, -8/16, -6/16, 4/16,  8/16},
+		-- { 6/16, -8/16, -8/16,  8/16, 4/16,  8/16},
+		-- {-6/16, -2/16, -6/16,  6/16, 8/16,  6/16},
+		{-0.5, 0.1, -0.5, -0.4375, 0.5, 0.5},
+		{0.4375, 0.1, -0.5, 0.5, 0.5, 0.5},
+		{-0.5, 0.1, -0.5, 0.5, 0.5, -0.4375},
+		{-0.5, 0.1, 0.4375, 0.5, 0.5, 0.5},
+		{-0.4375, -0.5, 0.375, -0.375, 0.1, 0.4375},
+		{0.375, -0.5, 0.375, 0.4375, 0.1, 0.4375},
+		{-0.4375, -0.5, -0.4375, -0.375, 0.1, -0.375},
+		{0.375, -0.5, -0.4375, 0.4375, 0.1, -0.375},
+		{-0.4375, 0.2, -0.4375, 0.4375, 0.1, 0.4375},
 	}
-	nodebox_data[5][5] = (8 - 2 * idx) / 16
+
+	nodebox_data[9][5] = 0.1 + idx * 0.1
 
 	local node_name = "fs_sieve:sieve"
 	local description = "Gravel Sieve"
 	local tiles_data = {
 		-- up, down, right, left, back, front
-		"fs_sieve_gravel.png",
-		"fs_sieve_gravel.png",
-		"fs_sieve_sieve.png",
-		"fs_sieve_sieve.png",
-		"fs_sieve_sieve.png",
-		"fs_sieve_sieve.png",
+		-- "fs_sieve_gravel.png",
+		-- "fs_sieve_gravel.png",
+		-- "fs_sieve_sieve.png",
+		-- "fs_sieve_sieve.png",
+		-- "fs_sieve_sieve.png",
+		-- "fs_sieve_sieve.png",
+		"default_wood.png",
+		"default_wood.png",
+		"default_wood.png",
+		"default_wood.png",
+		"default_wood.png",
+		"default_wood.png",
 	}
 
 	if idx == 3 then
@@ -97,9 +113,13 @@ for idx = 0, 4 do
 			type = "fixed",
 			fixed = nodebox_data,
 		},
+		collision_box = {
+			type = "fixed",
+			fixed = {-8/16, -8/16, -8/16,   8/16, 8/16, 8/16},
+		},
 		selection_box = {
 			type = "fixed",
-			fixed = { -8/16, -8/16, -8/16,   8/16, 4/16, 8/16 },
+			fixed = {-8/16, -8/16, -8/16,   8/16, 8/16, 8/16},
 		},
 
 		on_construct = function(pos)
