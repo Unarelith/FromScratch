@@ -39,7 +39,7 @@ TODOLIST
 
 # fs_sieve
 
-• TODO: Use an entity instead of multiple nodes
+• DONE: Use an entity instead of multiple nodes
 • TODO: Add `Dirt`, `Sand` and `Dust` support
 • TODO: Add a new entity for the silkmesh (maybe wait for `entity.visual = “nodebox”`)
 • TODO: Add ore pieces and various other items

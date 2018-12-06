@@ -4,7 +4,7 @@ FromScratch is a modpack for Minetest which provides a way to generate most reso
 
 This modpack is heavily inspirated by the Ex Nihilo mod for Minecraft.
 
-The mod `fs_sieve` is a fork of `gravelsieve` by JoSt.
+![](screenshot.png?raw=true)
 
 ## Mods
 
@@ -65,15 +65,9 @@ Use a crook to get extra leaves drop:
 - farming (for `farming:string`)
 - moreblocks (optional)
 
-## Screenshot
-
-![](https://i.goopics.net/yDYlP.png)
-
 ## License
 
 Copyright (C) 2018-2019 Quentin Bazin
-
-Copyright (C) 2017-2018 Joachim Stolberg (for gravelsieve)
 
 Code: Licensed under the GNU LGPL version 2.1 or later. See LICENSE.txt
 
