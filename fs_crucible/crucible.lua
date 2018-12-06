@@ -170,6 +170,7 @@ fs_crucible.register_crucible = function(name, info)
 			local input = meta:get_string("input_name")
 			local fluid = meta:get_string("fluid_name")
 
+			-- TODO: Add a function in `fs_core` for this
 			if fluid_amount > 1000 and itemstack:get_name() == "bucket:bucket_empty" then
 				itemstack:take_item()
 
@@ -178,9 +179,11 @@ fs_crucible.register_crucible = function(name, info)
 					handstack = itemstack:add_item(handstack)
 				end
 
-				if not handstack:is_empty() and player:get_inventory():room_for_item("main", handstack) then
-					clicker:get_inventory():add_item("main", handstack)
+				if not handstack:is_empty() and clicker:get_inventory():room_for_item("main", handstack) then
+					handstack = clicker:get_inventory():add_item("main", handstack)
+				end
 
+				if handstack:is_empty() then
 					meta:set_int("fluid", fluid_amount - 1000)
 					update_entity(pos, input_amount, fluid_amount - 1000, input, fluid)
 				end

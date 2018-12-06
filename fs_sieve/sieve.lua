@@ -37,11 +37,12 @@ local update_sieve = function(pos)
 	local idx = meta:get_int("idx", idx)
 
 	if inv:contains_item("src", gravel) then
-		idx = animate_sieve(pos, meta, idx)
 		if idx == 0 then
 			add_random_ores(inv)
 			inv:remove_item("src", gravel)
 		end
+
+		idx = animate_sieve(pos, meta, idx)
 	end
 end
 
@@ -206,6 +207,10 @@ minetest.register_node(node_name, {
 			end
 			inv:set_list("dst", {})
 		end
+
+		minetest.override_item(node_name, {
+			description = description .. " (" .. (idx / (N - 1)) .. "%)"
+		})
 	end,
 
 	paramtype = "light",
@@ -218,6 +223,6 @@ minetest.register_node(node_name, {
 		cracky = 1,
 		not_in_creative_inventory = not_in_creative_inventory
 	},
-	drop = node_name,
+	-- drop = node_name,
 })
 
