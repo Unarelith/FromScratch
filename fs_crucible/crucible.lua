@@ -133,6 +133,11 @@ fs_crucible.register_crucible = function(name, info)
 			}
 		},
 
+		collision_box = {
+			type = "fixed",
+			fixed = {-8/16, -8/16, -8/16, 8/16, 8/16, 8/16},
+		},
+
 		selection_box = {
 			type = "fixed",
 			fixed = {-8/16, -8/16, -8/16, 8/16, 8/16, 8/16},
@@ -236,10 +241,10 @@ fs_crucible.register_crucible("fs_crucible:crucible_wood", {
 	tiles = {
 		"default_tree_top.png",
 		"default_tree_top.png",
-		"default_tree.png",
-		"default_tree.png",
-		"default_tree.png",
-		"default_tree.png",
+		"fs_crucible_wood_side.png",
+		"fs_crucible_wood_side.png",
+		"fs_crucible_wood_side.png",
+		"fs_crucible_wood_side.png",
 	},
 })
 
