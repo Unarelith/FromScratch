@@ -89,7 +89,30 @@ minetest.register_entity("fs_crucible:crucible_entity", {
 		collide_with_objects = false,
 
 		pointable = false,
-	}
+	},
+
+	-- TODO: Move these functions to fs_core
+	on_activate = function(self, staticdata, dtime_s)
+		local data = minetest.deserialize(staticdata)
+		if not data or type(data) ~= "table" then
+			return
+		end
+
+		self.object:set_properties({
+			visual_size = data.visual_size,
+			textures = data.textures,
+			is_visible = data.is_visible,
+		})
+	end,
+
+	get_staticdata = function(self)
+		local prop = self.object:get_properties()
+		return minetest.serialize({
+			visual_size = prop.visual_size,
+			textures = prop.textures,
+			is_visible = prop.is_visible,
+		})
+	end,
 })
 
 fs_crucible.register_crucible = function(name, info)
