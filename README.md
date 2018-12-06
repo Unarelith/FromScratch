@@ -4,6 +4,8 @@ FromScratch is a modpack for Minetest which provides a way to generate most reso
 
 This modpack is heavily inspirated by the Ex Nihilo mod for Minecraft.
 
+It also provides a [small API](https://github.com/Quent42340/FromScratch/wiki/API-Documentation) to add custom Barrels, Crucibles and more.
+
 ![](screenshot.png?raw=true)
 
 ## Mods

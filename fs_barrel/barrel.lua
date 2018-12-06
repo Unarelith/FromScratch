@@ -122,7 +122,7 @@ minetest.register_entity("fs_barrel:barrel_entity", {
 	end,
 })
 
-local register_barrel = function(node_name, description, texture)
+fs_barrel.register_barrel = function(node_name, description, texture)
 	minetest.register_node(node_name, {
 		description = description,
 		drawtype = "nodebox",
@@ -211,6 +211,6 @@ local register_barrel = function(node_name, description, texture)
 	})
 end
 
-register_barrel("fs_barrel:barrel_wood", "Wooden Barrel", "default_wood.png")
-register_barrel("fs_barrel:barrel_stone", "Stone Barrel", "default_stone.png")
+fs_barrel.register_barrel("fs_barrel:barrel_wood", "Wooden Barrel", "default_wood.png")
+fs_barrel.register_barrel("fs_barrel:barrel_stone", "Stone Barrel", "default_stone.png")
 
