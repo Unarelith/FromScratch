@@ -8,16 +8,16 @@ TODOLIST
 
 • DONE: `Dirt` composting timer
 • DONE: Add stone barrel
-• TODO: Add “compostable” group
-• TODO: Fluid handling
-   ◦ TODO: In-out with buckets
-   ◦ TODO: Fluid display
-   ◦ TODO: `fluid_lib` support
+• DONE: Fluid handling
+   ◦ DONE: In-out with buckets
+   ◦ DONE: Fluid display
+   ◦ DONE: `fluid_lib` support
 • TODO: Item/fluid interaction
    ◦ TODO: `Dust` + `Water` = `Clay`
    ◦ TODO: `Water` + `Lava` = `Obsidian`
    ◦ TODO: `Water` + `Ancient Spores` = `Witch Water`
    ◦ TODO: `Sand` + `Witch Water` = `Soulsand`
+• TODO: Add “compostable” group or add a way to register items via API
 
 # fs_crucible
 

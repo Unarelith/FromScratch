@@ -1,1 +1,3 @@
+bucket
+fluid_lib
 fs_core

@@ -14,7 +14,7 @@ It also provides a [small API](https://github.com/Quent42340/FromScratch/wiki/AP
 
 Compost saplings to make dirt.
 
-_Will also be able to contain fluids._ (TODO)
+Barrels can contain water and lava (except lava for Wooden Barrel).
 
 Fluid/item interaction is also planned, for example:
 - _Dust + Water = Clay_ (TODO)
@@ -65,7 +65,8 @@ Use a crook to get extra leaves drop:
 
 - default
 - farming (for `farming:string`)
-- moreblocks (optional)
+- bucket
+- fluid_lib
 
 ## License
 
