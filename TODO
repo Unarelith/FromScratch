@@ -8,6 +8,7 @@ TODOLIST
 
 • DONE: `Dirt` composting timer
 • DONE: Add stone barrel
+• TODO: Add “compostable” group
 • TODO: Fluid handling
    ◦ TODO: In-out with buckets
    ◦ TODO: Fluid display
@@ -22,7 +23,8 @@ TODOLIST
 
 • WIP: Add crucibles
    ◦ DONE: Add `Crucible` to get `Lava` from `Cobblestone`
-   ◦ TODO: Add `Wooden Crucible` to get `Water` from `Saplings`
+   ◦ DONE: Add `Wooden Crucible` to get `Water` from `Saplings`
+   ◦ TODO: Handle more heat sources
 
 # fs_core
 
@@ -34,6 +36,11 @@ TODOLIST
 • WIP: Add blocks
    ◦ DONE: Add `Dust`
    ◦ TODO: Add `Compressed Sand` and `Compressed Dust`
+• WIP: Add helper functions for all the other mods
+   ◦ DONE: Helper function `bool fs_core.give_item_to_player(player_inv, itemstack)`
+   ◦ WIP: Generic entity system (for one entity first but needs to be flexible)
+      ◦ DONE: Handle entity registration and deletion
+      ◦ TODO: Animation helper functions
 • TODO: Add craft items
    ◦ TODO: Add things like `Ancient Spores` or `Grass Seeds`
 

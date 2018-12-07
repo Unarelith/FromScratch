@@ -10,19 +10,10 @@
 
 ]]--
 
--- FIXME: Move this to core
-local get_entity = function(pos)
-	local objects = minetest.get_objects_inside_radius(pos, 0.5)
-	for _, obj in ipairs(objects) do
-		local e = obj:get_luaentity()
-		if e and e.name == "fs_crucible:crucible_entity" then
-			return obj
-		end
-	end
-end
+local entity_name = "fs_crucible:crucible_entity"
 
 local update_entity = function(pos, input_amount, fluid_amount, input, fluid, entity)
-	entity = entity or get_entity(pos)
+	entity = entity or fs_core.get_subentity(pos, entity_name)
 	if entity then
 		local texture, height
 		if input_amount > 0 then
@@ -76,44 +67,41 @@ local on_timer = function(pos, elapsed)
 	return fluid_amount < 2000 and input_amount > 0
 end
 
-minetest.register_entity("fs_crucible:crucible_entity", {
-	initial_properties = {
-		visual = "wielditem",
-		visual_size = {
-			x = 0.666 * 14/16,
-			y = 0.666 * 14/16
-		},
+local on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
+	local meta = minetest.get_meta(pos)
+	local input_amount = meta:get_int("input")
+	local fluid_amount = meta:get_int("fluid")
+	local input = meta:get_string("input_name")
+	local fluid = meta:get_string("fluid_name")
 
-		textures = {"default:cobble"},
+	if fluid_amount > 1000 and itemstack:get_name() == "bucket:bucket_empty" then
+		itemstack:take_item()
 
-		collide_with_objects = false,
-
-		pointable = false,
-	},
-
-	-- TODO: Move these functions to fs_core
-	on_activate = function(self, staticdata, dtime_s)
-		local data = minetest.deserialize(staticdata)
-		if not data or type(data) ~= "table" then
-			return
+		local bucket = ItemStack("bucket:bucket_"..fluid)
+		if fs_core.give_item_to_player(player, itemstack, bucket) then
+			meta:set_int("fluid", fluid_amount - 1000)
+			update_entity(pos, input_amount, fluid_amount - 1000, input, fluid)
 		end
 
-		self.object:set_properties({
-			visual_size = data.visual_size,
-			textures = data.textures,
-			is_visible = data.is_visible,
-		})
-	end,
+		if fluid_amount >= 2000 and input_amount > 1 then
+			local timer = minetest.get_node_timer(pos)
+			if not timer:is_started() then
+				timer:start(4)
+			end
+		end
+	elseif input_amount < 8 and itemstack:get_name() == input then
+		itemstack:take_item()
+		meta:set_int("input", input_amount + 1)
+		update_entity(pos, input_amount + 1, fluid_amount, input, fluid)
 
-	get_staticdata = function(self)
-		local prop = self.object:get_properties()
-		return minetest.serialize({
-			visual_size = prop.visual_size,
-			textures = prop.textures,
-			is_visible = prop.is_visible,
-		})
-	end,
-})
+		local timer = minetest.get_node_timer(pos)
+		if not timer:is_started() then
+			timer:start(4)
+		end
+	end
+
+	return itemstack
+end
 
 fs_crucible.register_crucible = function(name, info)
 	minetest.register_node(name, {
@@ -152,61 +140,15 @@ fs_crucible.register_crucible = function(name, info)
 			meta:set_string("input_name", info.input)
 			meta:set_string("fluid_name", info.fluid)
 
-			local entity = minetest.add_entity(pos, "fs_crucible:crucible_entity")
+			local entity = minetest.add_entity(pos, entity_name)
 			update_entity(pos, 0, 0, info.input, info.fluid, entity)
 		end,
 
 		on_destruct = function(pos)
-			local e = get_entity(pos)
-			if e then
-				e:remove()
-			end
+			fs_core.remove_subentity(pos, entity_name)
 		end,
 
-		on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
-			local meta = minetest.get_meta(pos)
-			local input_amount = meta:get_int("input")
-			local fluid_amount = meta:get_int("fluid")
-			local input = meta:get_string("input_name")
-			local fluid = meta:get_string("fluid_name")
-
-			-- TODO: Add a function in `fs_core` for this
-			if fluid_amount > 1000 and itemstack:get_name() == "bucket:bucket_empty" then
-				itemstack:take_item()
-
-				local handstack = ItemStack("bucket:bucket_"..fluid)
-				if itemstack:is_empty() then
-					handstack = itemstack:add_item(handstack)
-				end
-
-				if not handstack:is_empty() and clicker:get_inventory():room_for_item("main", handstack) then
-					handstack = clicker:get_inventory():add_item("main", handstack)
-				end
-
-				if handstack:is_empty() then
-					meta:set_int("fluid", fluid_amount - 1000)
-					update_entity(pos, input_amount, fluid_amount - 1000, input, fluid)
-				end
-
-				if fluid_amount >= 2000 and input_amount > 1 then
-					local timer = minetest.get_node_timer(pos)
-					if not timer:is_started() then
-						timer:start(4)
-					end
-				end
-			elseif input_amount < 8 and itemstack:get_name() == input then
-				itemstack:take_item()
-				meta:set_int("input", input_amount + 1)
-				update_entity(pos, input_amount + 1, fluid_amount, input, fluid)
-
-				local timer = minetest.get_node_timer(pos)
-				if not timer:is_started() then
-					timer:start(4)
-				end
-			end
-
-			return itemstack
-		end,
+		on_rightclick = on_rightclick,
 
 		paramtype = "light",
 		sounds = default.node_sound_wood_defaults(),
@@ -219,6 +161,8 @@ fs_crucible.register_crucible = function(name, info)
 		},
 	})
 end
+
+fs_core.register_subentity(entity_name, 14/16, 14/16, "default:cobble")
 
 fs_crucible.register_crucible("fs_crucible:crucible", {
 	name = "Crucible",

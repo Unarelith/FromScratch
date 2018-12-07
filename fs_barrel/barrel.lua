@@ -10,7 +10,8 @@
 
 ]]--
 
-local N = 13
+local N = 9
+local entity_name = "fs_barrel:barrel_entity"
 
 local animate_barrel = function(meta, idx)
 	idx = (idx + 1) % N
@@ -18,19 +19,8 @@ local animate_barrel = function(meta, idx)
 	return idx
 end
 
--- FIXME: Move this to core
-fs_barrel.get_entity = function(pos)
-	local objects = minetest.get_objects_inside_radius(pos, 0.5)
-	for _, obj in ipairs(objects) do
-		local e = obj:get_luaentity()
-		if e and e.name == "fs_barrel:barrel_entity" then
-			return obj
-		end
-	end
-end
-
 fs_barrel.update_entity = function(pos, idx, entity)
-	entity = entity or fs_barrel.get_entity(pos)
+	entity = entity or fs_core.get_subentity(pos, entity_name)
 	if entity then
 		pos.y = pos.y - 6 / 16 + 12 / 16 * idx / (N - 1) / 2
 		entity:set_pos(pos)
@@ -48,14 +38,19 @@ fs_barrel.update_entity = function(pos, idx, entity)
 	end
 end
 
-fs_barrel.update = function(pos, player, itemstack)
+-- TODO: Use a table instead of hardcoded items
+fs_barrel.is_compostable = function(itemname)
+	local is_sapling = minetest.get_item_group(itemname, "sapling") > 0
+	local is_leaves = minetest.get_item_group(itemname, "leaves") > 0
+	return is_sapling or is_leaves
+end
+
+local on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 	local meta = minetest.get_meta(pos)
 	local idx = meta:get_int("idx")
 	local progress = meta:get_int("progress")
 
-	local is_sapling = minetest.get_item_group(itemstack:get_name(), "sapling") > 0
-	local is_leaves = minetest.get_item_group(itemstack:get_name(), "leaves") > 0
-	if idx < N - 1 and (is_sapling or is_leaves) then
+	if idx < N - 1 and fs_barrel.is_compostable(itemstack:get_name()) then
 		idx = animate_barrel(meta, idx)
 		itemstack:take_item()
 
@@ -65,62 +60,16 @@ fs_barrel.update = function(pos, player, itemstack)
 	elseif idx == N - 1 and progress == 100 then
 		idx = animate_barrel(meta, idx)
 
-		local handstack = ItemStack("default:dirt")
-		if itemstack:is_empty() or itemstack:get_name() == handstack:get_name() then
-			handstack = itemstack:add_item(handstack)
+		local dirt = ItemStack("default:dirt")
+		if fs_core.give_item_to_player(player, itemstack, dirt) then
+			meta:set_int("progress", 0)
 		end
-
-		if not handstack:is_empty() and player:get_inventory():room_for_item("main", handstack) then
-			player:get_inventory():add_item("main", handstack)
-		end
-
-
-		meta:set_int("progress", 0)
 	end
 
 	fs_barrel.update_entity(pos, idx)
 
 	return itemstack
 end
-
-minetest.register_entity("fs_barrel:barrel_entity", {
-	initial_properties = {
-		visual = "wielditem",
-		visual_size = {
-			x = 0.666 * 10/16,
-			y = 0.666 * 12/16
-		},
-
-		textures = {"default:dirt"},
-
-		collide_with_objects = false,
-
-		pointable = false,
-	},
-
-	-- TODO: Move these functions to fs_core
-	on_activate = function(self, staticdata, dtime_s)
-		local data = minetest.deserialize(staticdata)
-		if not data or type(data) ~= "table" then
-			return
-		end
-
-		self.object:set_properties({
-			visual_size = data.visual_size,
-			textures = data.textures,
-			is_visible = data.is_visible,
-		})
-	end,
-
-	get_staticdata = function(self)
-		local prop = self.object:get_properties()
-		return minetest.serialize({
-			visual_size = prop.visual_size,
-			textures = prop.textures,
-			is_visible = prop.is_visible,
-		})
-	end,
-})
 
 fs_barrel.register_barrel = function(node_name, description, texture)
 	minetest.register_node(node_name, {
@@ -158,17 +107,13 @@ fs_barrel.register_barrel = function(node_name, description, texture)
 			local meta = minetest.get_meta(pos)
 			meta:set_int("idx", 0)
 			meta:set_int("progress", 0)
-			meta:set_string("node_name", node_name)
 
-			local entity = minetest.add_entity(pos, "fs_barrel:barrel_entity")
+			local entity = minetest.add_entity(pos, entity_name)
 			fs_barrel.update_entity(pos, 0, entity)
 		end,
 
 		on_destruct = function(pos)
-			local e = fs_barrel.get_entity(pos)
-			if e then
-				e:remove()
-			end
+			fs_core.remove_subentity(pos, entity_name)
 		end,
 
 		on_timer = function(pos, elapsed)
@@ -176,28 +121,15 @@ fs_barrel.register_barrel = function(node_name, description, texture)
 			local progress = meta:get_int("progress") + 10
 			meta:set_int("progress", progress)
 
-			-- FIXME: Show a small tooltip instead
-			-- if progress < 100 then
-			-- 	minetest.override_item(node_name, {
-			-- 		description = description .. " (" .. progress .. "%)"
-			-- 	})
-			-- else
-			-- 	minetest.override_item(node_name, {
-			-- 		description = description
-			-- 	})
-			-- end
-
 			return progress < 100
 		end,
 
-		-- after_place_node = function(pos, placer)
-		-- 	local meta = minetest.get_meta(pos)
-		-- 	meta:set_string("infotext", "Wooden Barrel")
-		-- end,
-
-		on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-			return fs_barrel.update(pos, player, itemstack)
+		after_place_node = function(pos, placer)
+			local meta = minetest.get_meta(pos)
+			meta:set_string("infotext", "Wooden Barrel!!!")
 		end,
+
+		on_rightclick = on_rightclick,
 
 		paramtype = "light",
 		sounds = default.node_sound_wood_defaults(),
@@ -210,6 +142,8 @@ fs_barrel.register_barrel = function(node_name, description, texture)
 		},
 	})
 end
+
+fs_core.register_subentity(entity_name, 10/16, 12/16, "default:dirt")
 
 fs_barrel.register_barrel("fs_barrel:barrel_wood", "Wooden Barrel", "default_wood.png")
 fs_barrel.register_barrel("fs_barrel:barrel_stone", "Stone Barrel", "default_stone.png")

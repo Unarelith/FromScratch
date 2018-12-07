@@ -11,6 +11,7 @@
 ]]--
 
 local N = 5
+local entity_name = "fs_sieve:sieve_entity"
 
 local animate_sieve = function(pos, meta, idx)
 	idx = (idx + 1) % N
@@ -46,20 +47,9 @@ local update_sieve = function(pos)
 	end
 end
 
--- FIXME: Move this to core
-local get_entity = function(pos)
-	local objects = minetest.get_objects_inside_radius(pos, 0.5)
-	for _, obj in ipairs(objects) do
-		local e = obj:get_luaentity()
-		if e and e.name == "fs_sieve:sieve_entity" then
-			return obj
-		end
-	end
-end
-
 local update_entity = function(pos, idx, item, entity)
 	item = item or "default:gravel"
-	entity = entity or get_entity(pos)
+	entity = entity or fs_core.get_subentity(pos, entity_name)
 	if entity then
 		local texture, height
 		texture = item
@@ -81,83 +71,64 @@ local update_entity = function(pos, idx, item, entity)
 	end
 end
 
-minetest.register_entity("fs_sieve:sieve_entity", {
-	initial_properties = {
-		visual = "wielditem",
-		visual_size = {
-			x = 0.666 * 14/16,
-			y = 0.666 * 7/16
-		},
+local on_rightclick = function(pos, node, player, itemstack, pointed_thing)
+	local meta = minetest.get_meta(pos)
+	local inv = meta:get_inventory()
+	local idx = meta:get_int("idx")
+	if inv:is_empty("src") and itemstack:get_name() == "default:gravel" then
+		inv:set_stack("src", 1, itemstack:take_item())
+	end
 
-		textures = {"default:gravel"},
+	if not inv:is_empty("src") then
+		update_sieve(pos)
+		update_entity(pos, idx)
+	end
 
-		collide_with_objects = false,
-
-		pointable = false,
-	},
-
-	-- TODO: Move these functions to fs_core
-	on_activate = function(self, staticdata, dtime_s)
-		local data = minetest.deserialize(staticdata)
-		if not data or type(data) ~= "table" then
-			return
+	if idx == 0 and not inv:is_empty("dst") then
+		local list = inv:get_list("dst")
+		for _, stack in ipairs(list) do
+			fs_core.drop_item_stack(pos, stack)
 		end
+		inv:set_list("dst", {})
+	end
+end
 
-		self.object:set_properties({
-			visual_size = data.visual_size,
-			textures = data.textures,
-			is_visible = data.is_visible,
-		})
-	end,
+fs_core.register_subentity(entity_name, 14/16, 7/16, "default:gravel")
 
-	get_staticdata = function(self)
-		local prop = self.object:get_properties()
-		return minetest.serialize({
-			visual_size = prop.visual_size,
-			textures = prop.textures,
-			is_visible = prop.is_visible,
-		})
-	end,
-})
-
-local nodebox_data = {
-	{-0.5, 0.1, -0.5, -0.4375, 0.5, 0.5},
-	{0.4375, 0.1, -0.5, 0.5, 0.5, 0.5},
-	{-0.5, 0.1, -0.5, 0.5, 0.5, -0.4375},
-	{-0.5, 0.1, 0.4375, 0.5, 0.5, 0.5},
-	{-0.4375, -0.5, 0.375, -0.375, 0.1, 0.4375},
-	{0.375, -0.5, 0.375, 0.4375, 0.1, 0.4375},
-	{-0.4375, -0.5, -0.4375, -0.375, 0.1, -0.375},
-	{0.375, -0.5, -0.4375, 0.4375, 0.1, -0.375},
-	{-0.4375, 0.2, -0.4375, 0.4375, 0.1, 0.4375},
-}
-
-local node_name = "fs_sieve:sieve"
-local description = "Gravel Sieve"
-local tiles_data = {
-	-- up, down, right, left, back, front
-	"fs_sieve_top.png",
-	"default_wood.png",
-	"default_wood.png",
-	"default_wood.png",
-	"default_wood.png",
-	"default_wood.png",
-}
-
-minetest.register_node(node_name, {
-	description = description,
-	tiles = tiles_data,
+minetest.register_node("fs_sieve:sieve", {
+	description = "Gravel Sieve",
 	drawtype = "nodebox",
-	drop = node_name,
+
+	tiles = {
+		-- up, down, right, left, back, front
+		"fs_sieve_top.png",
+		"default_wood.png",
+		"default_wood.png",
+		"default_wood.png",
+		"default_wood.png",
+		"default_wood.png",
+	},
 
 	node_box = {
 		type = "fixed",
-		fixed = nodebox_data,
+		fixed = {
+			{-0.5, 0.1, -0.5, -0.4375, 0.5, 0.5},
+			{0.4375, 0.1, -0.5, 0.5, 0.5, 0.5},
+			{-0.5, 0.1, -0.5, 0.5, 0.5, -0.4375},
+			{-0.5, 0.1, 0.4375, 0.5, 0.5, 0.5},
+			{-0.4375, -0.5, 0.375, -0.375, 0.1, 0.4375},
+			{0.375, -0.5, 0.375, 0.4375, 0.1, 0.4375},
+			{-0.4375, -0.5, -0.4375, -0.375, 0.1, -0.375},
+			{0.375, -0.5, -0.4375, 0.4375, 0.1, -0.375},
+			{-0.4375, 0.2, -0.4375, 0.4375, 0.1, 0.4375},
+		}
 	},
+
 	collision_box = {
 		type = "fixed",
 		fixed = {-8/16, -8/16, -8/16,   8/16, 8/16, 8/16},
 	},
+
 	selection_box = {
 		type = "fixed",
 		fixed = {-8/16, -8/16, -8/16,   8/16, 8/16, 8/16},
@@ -171,15 +142,12 @@ minetest.register_node(node_name, {
 		inv:set_size('src', 1)
 		inv:set_size('dst', 16)
 
-		local entity = minetest.add_entity(pos, "fs_sieve:sieve_entity")
+		local entity = minetest.add_entity(pos, entity_name)
 		update_entity(pos, 0, entity)
 	end,
 
 	on_destruct = function(pos)
-		local e = get_entity(pos)
-		if e then
-			e:remove()
-		end
+		fs_core.remove_subentity(pos, entity_name)
 	end,
 
 	after_place_node = function(pos, placer)
@@ -187,31 +155,7 @@ minetest.register_node(node_name, {
 		meta:set_string("infotext", "Gravel Sieve")
 	end,
 
-	on_rightclick = function(pos, node, player, itemstack, pointed_thing)
-		local meta = minetest.get_meta(pos)
-		local inv = meta:get_inventory()
-		local idx = meta:get_int("idx")
-		if inv:is_empty("src") and itemstack:get_name() == "default:gravel" then
-			inv:set_stack("src", 1, itemstack:take_item())
-		end
-
-		if not inv:is_empty("src") then
-			update_sieve(pos)
-			update_entity(pos, idx)
-		end
-
-		if idx == 0 and not inv:is_empty("dst") then
-			local list = inv:get_list("dst")
-			for _, stack in ipairs(list) do
-				fs_core.drop_item_stack(pos, stack)
-			end
-			inv:set_list("dst", {})
-		end
-
-		minetest.override_item(node_name, {
-			description = description .. " (" .. (idx / (N - 1)) .. "%)"
-		})
-	end,
+	on_rightclick = on_rightclick,
 
 	paramtype = "light",
 	sounds = default.node_sound_wood_defaults(),
@@ -223,6 +167,5 @@ minetest.register_node(node_name, {
 		cracky = 1,
 		not_in_creative_inventory = not_in_creative_inventory
 	},
-	-- drop = node_name,
 })
 

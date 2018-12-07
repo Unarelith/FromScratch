@@ -16,6 +16,7 @@ fs_core = rawget(_G, "fs_core") or {}
 fs_core.modpath = modpath
 
 dofile(modpath .. "/utils.lua")
+dofile(modpath .. "/subentity.lua")
 dofile(modpath .. "/nodes.lua")
 dofile(modpath .. "/infested_leaves.lua")
 dofile(modpath .. "/silkworm.lua")
