@@ -12,9 +12,9 @@ TODOLIST
    ◦ DONE: In-out with buckets
    ◦ DONE: Fluid display
    ◦ DONE: `fluid_lib` support
-• TODO: Item/fluid interaction
-   ◦ TODO: `Dust` + `Water` = `Clay`
-   ◦ TODO: `Water` + `Lava` = `Obsidian`
+• WIP: Item/fluid interaction
+   ◦ DONE: `Dust` + `Water` = `Clay`
+   ◦ DONE: `Water` + `Lava` = `Obsidian`
    ◦ TODO: `Water` + `Ancient Spores` = `Witch Water`
    ◦ TODO: `Sand` + `Witch Water` = `Soulsand`
 • TODO: Add “compostable” group or add a way to register items via API
@@ -25,6 +25,7 @@ TODOLIST
    ◦ DONE: Add `Crucible` to get `Lava` from `Cobblestone`
    ◦ DONE: Add `Wooden Crucible` to get `Water` from `Saplings`
    ◦ TODO: Handle more heat sources
+• TODO: Add `Porcelain Clay`
 
 # fs_core
 

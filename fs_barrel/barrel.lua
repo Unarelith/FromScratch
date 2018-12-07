@@ -25,6 +25,10 @@ local update_entity = function(pos, idx, entity, texture)
 		pos.y = pos.y - 6 / 16 + 12 / 16 * idx / (N - 1) / 2
 		entity:set_pos(pos)
 
+		if not texture and idx > 0 then
+			texture = minetest.get_meta(pos):get_string("item")
+		end
+
 		entity:set_properties({
 			textures = {texture or "default:dirt"},
 
@@ -53,18 +57,47 @@ local handle_bucket = function(pos, buffer, itemstack)
 	if itemname == "bucket:bucket_empty" and buffer.amount >= 1000 then
 		local bucket = bucket.liquids[buffer.fluid]
 		if bucket and fluid_lib.can_take_from_buffer(pos, "buffer", 1000) == 1000 then
+			itemstack:take_item()
+			itemstack = fs_core.give_item_to_player(player, itemstack, ItemStack(bucket.itemname))
+
 			fluid_lib.take_from_buffer(pos, "buffer", 1000)
-			itemstack = ItemStack(bucket.itemname)
-			update_entity(pos, (buffer.amount - 1000) / buffer.capacity * (N - 2), nil, fluid)
+			update_entity(pos, (buffer.amount - 1000) / buffer.capacity * (N - 2), nil, buffer.fluid)
 		end
 	elseif itemname:find("bucket:bucket_.+") then
 		local fluid = bucket.get_liquid_for_bucket(itemname)
 		if fluid and fluid_lib.can_insert_into_buffer(pos, "buffer", fluid, 1000) == 1000 then
+			itemstack:take_item()
+			itemstack = fs_core.give_item_to_player(player, itemstack, ItemStack("bucket:bucket_empty"))
+
 			fluid_lib.insert_into_buffer(pos, "buffer", fluid, 1000)
-			itemstack = ItemStack("bucket:bucket_empty")
 			update_entity(pos, (buffer.amount + 1000) / buffer.capacity * (N - 2), nil, fluid)
 			:set_pos({x=pos.x, y=pos.y + 6/16, z=pos.z}) -- FIXME: Why is this necessary?
 		end
+	end
+
+	return itemstack
+end
+
+local handle_node_interaction = function(pos, meta, buffer, player, itemstack)
+	if itemstack:get_name() == "fs_core:dust" and buffer.fluid == "default:water_source" then
+		itemstack:take_item()
+
+		meta:set_int("idx", N - 1)
+		meta:set_int("progress", 100)
+		meta:set_string("item", "default:clay")
+
+		fluid_lib.take_from_buffer(pos, "buffer", 1000)
+		update_entity(pos, N - 1)
+	elseif itemstack:get_name() == "bucket:bucket_water" and buffer.fluid == "default:lava_source" then
+		itemstack:take_item()
+		itemstack = fs_core.give_item_to_player(player, itemstack, ItemStack("bucket:bucket_empty"))
+
+		meta:set_int("idx", N - 1)
+		meta:set_int("progress", 100)
+		meta:set_string("item", "default:obsidian")
+
+		fluid_lib.take_from_buffer(pos, "buffer", 1000)
+		update_entity(pos, N - 1)
 	end
 
 	return itemstack
@@ -74,6 +107,7 @@ local on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 	local meta = minetest.get_meta(pos)
 	local idx = meta:get_int("idx")
 	local progress = meta:get_int("progress")
+	local item = meta:get_string("item")
 	local buffer = fluid_lib.get_buffer_data(pos, "buffer")
 
 	if buffer.amount == 0 then
@@ -81,16 +115,15 @@ local on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 			idx = animate_barrel(meta, idx)
 			itemstack:take_item()
 
-			if idx == N - 1 then
+			if idx == 1 then
+				meta:set_string("item", "default:dirt")
+			elseif idx == N - 1 then
 				minetest.get_node_timer(pos):start(1)
 			end
 		elseif idx == N - 1 and progress == 100 then
 			idx = animate_barrel(meta, idx)
-
-			local dirt = ItemStack("default:dirt")
-			if fs_core.give_item_to_player(player, itemstack, dirt) then
-				meta:set_int("progress", 0)
-			end
+			itemstack = fs_core.give_item_to_player(player, itemstack, ItemStack(item))
+			meta:set_int("progress", 0)
 		end
 
 		update_entity(pos, idx)
@@ -98,6 +131,10 @@ local on_rightclick = function(pos, node, player, itemstack, pointed_thing)
 
 	if idx == 0 then
 		itemstack = handle_bucket(pos, buffer, itemstack)
+	end
+
+	if buffer.amount == buffer.capacity and not itemstack:is_empty() then
+		itemstack = handle_node_interaction(pos, meta, buffer, player, itemstack)
 	end
 
 	return itemstack
@@ -139,6 +176,7 @@ fs_barrel.register_barrel = function(name, info)
 			local meta = minetest.get_meta(pos)
 			meta:set_int("idx", 0)
 			meta:set_int("progress", 0)
+			meta:set_string("item", "default:dirt")
 
 			meta:set_string("infotext", info.name)
 

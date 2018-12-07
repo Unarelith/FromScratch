@@ -16,9 +16,9 @@ Compost saplings to make dirt.
 
 Barrels can contain water and lava (except lava for Wooden Barrel).
 
-Fluid/item interaction is also planned, for example:
-- _Dust + Water = Clay_ (TODO)
-- _Water + Lava = Obsidian_ (TODO)
+It's possible to create some blocks by right-clicking a full barrel with a specific item:
+- Dust + Water = Clay
+- Water Bucket + Lava = Obsidian
 
 ### fs_core
 
@@ -38,7 +38,7 @@ Once a Leave is fully infested, you can dig it to get String.
 
 Put cobblestone into the crucible and put a torch under it to melt it.
 
-_Another crucible, made of wood, will be able to make water from saplings._ (TODO)
+Another crucible, made of wood, can generate water from leaves.
 
 The crucibles can hold 2 buckets of liquid and 8 items maximum.
 

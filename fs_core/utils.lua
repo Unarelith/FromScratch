@@ -19,15 +19,22 @@ fs_core.drop_item_stack = function(pos, stack)
 	end
 end
 
+-- fs_core.give_item_to_player = function(player, itemstack)
+-- 	if not itemstack:is_empty() and player:get_inventory():room_for_item("main", itemstack) then
+-- 		return player:get_inventory():add_item("main", itemstack)
+-- 	end
+-- end
+
 fs_core.give_item_to_player = function(player, handstack, itemstack)
-	if handstack:is_empty() then
-		itemstack = handstack:add_item(itemstack)
-	end
+	itemstack = handstack:add_item(itemstack)
 
 	if not itemstack:is_empty() and player:get_inventory():room_for_item("main", itemstack) then
-		itemstack = player:get_inventory():add_item("main", itemstack)
+		local remainder = player:get_inventory():add_item("main", itemstack)
+		if not remainder:is_empty() then
+			fs_core.drop_item(remainder)
+		end
 	end
 
-	return itemstack:is_empty()
+	return handstack
 end
 
