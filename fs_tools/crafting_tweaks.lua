@@ -1,3 +1,15 @@
+--[[
+
+	fs_tools
+	================
+
+	Copyright (C) 2018-2019 Quentin Bazin
+
+	LGPLv2.1+
+	See LICENSE.txt for more information
+
+]]--
+
 minetest.override_item("default:cobble", {drop = {
 	max_items = 1,
 	items = {

@@ -1,8 +1,23 @@
 TODOLIST
 
+# Release plan for 0.3.0a (blocker for TechTest 0.2.0a)
+
+• New sieve output system and crafting items (ore pieces, seeds, pebbles, etc...)
+• `Dirt`, `Sand`, `Dust` support in sieve
+• New craft items (`Porcelain Clay`)
+
+# Release plan for 0.3.1a (for TechTest 0.2.1a)
+
+• Crucible heat source system
+• Better leaves handling (texture auto-gathering, etc..)
+• Full subentity API (animations, status, multi-entity (ex. crucible), etc...)
+
 # Issues
 
 • DONE: Entity-based nodes are not updated correctly on login
+• TODO: Fix Barrel and Crucible textures when using a texture pack
+• TODO: Infested leaves drop themselves instead of nothing
+• TODO: Fix Sieve drops
 
 # fs_barrel
 
@@ -12,11 +27,9 @@ TODOLIST
    ◦ DONE: In-out with buckets
    ◦ DONE: Fluid display
    ◦ DONE: `fluid_lib` support
-• WIP: Item/fluid interaction
+• DONE: Item/fluid interaction
    ◦ DONE: `Dust` + `Water` = `Clay`
    ◦ DONE: `Water` + `Lava` = `Obsidian`
-   ◦ TODO: `Water` + `Ancient Spores` = `Witch Water`
-   ◦ TODO: `Sand` + `Witch Water` = `Soulsand`
 • TODO: Add “compostable” group or add a way to register items via API
 
 # fs_crucible
@@ -42,8 +55,6 @@ TODOLIST
    ◦ WIP: Generic entity system (for one entity first but needs to be flexible)
       ◦ DONE: Handle entity registration and deletion
       ◦ TODO: Animation helper functions
-• TODO: Add craft items
-   ◦ TODO: Add things like `Ancient Spores` or `Grass Seeds`
 
 # fs_sieve
 

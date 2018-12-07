@@ -3,12 +3,7 @@
 	fs_sieve
 	================
 
-	Derived from gravelsieve v1.08 by JoSt
-
 	Copyright (C) 2018-2019 Quentin Bazin
-	Copyright (C) 2017-2018 Joachim Stolberg
-	Copyright (C) 2011-2016 celeron55, Perttu Ahola <celeron55@gmail.com>
-	Copyright (C) 2011-2016 Various Minetest developers and contributors
 
 	LGPLv2.1+
 	See LICENSE.txt for more information
