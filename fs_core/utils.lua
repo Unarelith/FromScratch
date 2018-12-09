@@ -12,9 +12,9 @@ fs_core.drop_item_stack = function(pos, stack)
 		if obj ~= nil then
 			obj:get_luaentity().collect = true
 			obj:get_luaentity().age = age
-			obj:setvelocity({x = math.random(-2, 2),
-			                 y = math.random(2, 5),
-			                 z = math.random(-2, 2)})
+			obj:setvelocity({x = math.random(-1, 1),
+			                 y = math.random(3, 4),
+			                 z = math.random(-1, 1)})
 		end
 	end
 end

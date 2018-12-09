@@ -22,7 +22,7 @@ end
 local update_entity = function(pos, idx, entity, texture)
 	entity = entity or fs_core.get_subentity(pos, entity_name, texture)
 	if entity then
-		pos.y = pos.y - 6 / 16 + 12 / 16 * idx / (N - 1) / 2
+		pos.y = pos.y - 6 / 16 + 12 / 16 * idx / N / 2
 		entity:set_pos(pos)
 
 		if not texture and idx > 0 then
@@ -34,7 +34,7 @@ local update_entity = function(pos, idx, entity, texture)
 
 			visual_size = {
 				x = 0.666 * 10 / 16,
-				y = 0.666 * 12 / 16 * idx / (N - 1)
+				y = 0.666 * 12 / 16 * idx / N
 			},
 
 			is_visible = idx > 0
@@ -61,7 +61,7 @@ local handle_bucket = function(pos, buffer, itemstack)
 			itemstack = fs_core.give_item_to_player(player, itemstack, ItemStack(bucket.itemname))
 
 			fluid_lib.take_from_buffer(pos, "buffer", 1000)
-			update_entity(pos, (buffer.amount - 1000) / buffer.capacity * (N - 2), nil, buffer.fluid)
+			update_entity(pos, (buffer.amount - 1000) / buffer.capacity * (N - 1), nil, buffer.fluid)
 		end
 	elseif itemname:find("bucket:bucket_.+") then
 		local fluid = bucket.get_liquid_for_bucket(itemname)
@@ -70,7 +70,7 @@ local handle_bucket = function(pos, buffer, itemstack)
 			itemstack = fs_core.give_item_to_player(player, itemstack, ItemStack("bucket:bucket_empty"))
 
 			fluid_lib.insert_into_buffer(pos, "buffer", fluid, 1000)
-			update_entity(pos, (buffer.amount + 1000) / buffer.capacity * (N - 2), nil, fluid)
+			update_entity(pos, (buffer.amount + 1000) / buffer.capacity * (N - 1), nil, fluid)
 			:set_pos({x=pos.x, y=pos.y + 6/16, z=pos.z}) -- FIXME: Why is this necessary?
 		end
 	end

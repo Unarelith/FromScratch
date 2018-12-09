@@ -22,6 +22,8 @@ end
 local add_random_ore_pieces = function(inv)
 	local num
 	for ore, probability in pairs(fs_sieve.ore_probability) do
+		probability = probability / 4.0
+
 		local ore_piece = fs_sieve.ore_pieces[ore]
 		if ore_piece then
 			probability = probability / 4.0
