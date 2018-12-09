@@ -14,3 +14,10 @@ minetest.register_craft({
     cooktime = 3.5,
 })
 
+minetest.register_craft({
+    type = "cooking",
+    recipe = "default:clay_lump",
+    output = "fs_core:porcelain_clay",
+    cooktime = 3.5,
+})
+

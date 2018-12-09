@@ -4,10 +4,11 @@ TODOLIST
 
 • DONE: New sieve output system and crafting items (ore pieces, seeds, pebbles, etc...)
 • DONE: `Dirt`, `Sand`, `Dust` support in sieve
-• TODO: New craft items (`Porcelain Clay`)
+• DONE: New craft items (`Porcelain Clay`)
 
 # Release plan for 0.3.1a (for TechTest 0.2.1a)
 
+• Add API documentation for `fs_sieve.register_ore_piece`
 • Crucible heat source system
 • Better leaves handling (texture auto-gathering, etc..)
 • Full subentity API (animations, status, multi-entity (ex. crucible), etc...)

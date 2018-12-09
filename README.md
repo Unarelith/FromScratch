@@ -44,11 +44,11 @@ The crucibles can hold 2 buckets of liquid and 8 items maximum.
 
 ### fs_sieve
 
-Use a sieve to get ores from Gravel.
+Use a sieve to get ores from Gravel, Sand and Dust.
+
+It's also possible to get stone pebbles and seeds by sieving Dirt;
 
 You will need String to make a Silk Mesh.
-
-_Will support Dirt, Sand and Dust too._ (TODO)
 
 ### fs_tools
 

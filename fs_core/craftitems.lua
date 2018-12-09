@@ -14,3 +14,8 @@ minetest.register_craftitem("fs_core:stone_pebble", {
 	inventory_image = "fs_core_pebble.png"
 })
 
+minetest.register_craftitem("fs_core:porcelain_clay", {
+	description = "Porcelain Clay",
+	inventory_image = "fs_core_porcelain_clay.png"
+})
+
