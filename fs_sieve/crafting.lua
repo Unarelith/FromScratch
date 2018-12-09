@@ -16,10 +16,3 @@ minetest.register_craft({
 	},
 })
 
-minetest.register_craft({
-	type = "cooking",
-	output = "default:cobble",
-	recipe = "fs_sieve:compressed_gravel",
-	cooktime = 10,
-})
-

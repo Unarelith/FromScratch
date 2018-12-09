@@ -12,18 +12,12 @@ fs_core.drop_item_stack = function(pos, stack)
 		if obj ~= nil then
 			obj:get_luaentity().collect = true
 			obj:get_luaentity().age = age
-			obj:setvelocity({x = math.random(-3, 3),
+			obj:setvelocity({x = math.random(-2, 2),
 			                 y = math.random(2, 5),
-			                 z = math.random(-3, 3)})
+			                 z = math.random(-2, 2)})
 		end
 	end
 end
-
--- fs_core.give_item_to_player = function(player, itemstack)
--- 	if not itemstack:is_empty() and player:get_inventory():room_for_item("main", itemstack) then
--- 		return player:get_inventory():add_item("main", itemstack)
--- 	end
--- end
 
 fs_core.give_item_to_player = function(player, handstack, itemstack)
 	itemstack = handstack:add_item(itemstack)

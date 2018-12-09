@@ -16,6 +16,7 @@ fs_sieve = rawget(_G, "fs_sieve") or {}
 fs_sieve.modpath = modpath
 
 dofile(modpath .. "/ore_probability.lua")
+dofile(modpath .. "/ore_pieces.lua")
 dofile(modpath .. "/sieve.lua")
 dofile(modpath .. "/crafting.lua")
 dofile(modpath .. "/nodes.lua")

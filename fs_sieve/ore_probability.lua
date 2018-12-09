@@ -25,7 +25,7 @@ fs_sieve.ore_probability = {
 
 -- Collect all registered ores and calculate the probability
 local function add_ores()
-	for _,item in  pairs(minetest.registered_ores) do
+	for _, item in pairs(minetest.registered_ores) do
 		if minetest.registered_nodes[item.ore] then
 			local drop = minetest.registered_nodes[item.ore].drop
 			if type(drop) == "string"
@@ -41,8 +41,7 @@ local function add_ores()
 					if fs_sieve.ore_probability[drop] == nil then
 						fs_sieve.ore_probability[drop] = probability
 					else
-						fs_sieve.ore_probability[drop] =
-										math.min(fs_sieve.ore_probability[drop], probability)
+						fs_sieve.ore_probability[drop] = math.min(fs_sieve.ore_probability[drop], probability)
 					end
 				end
 			end
@@ -50,9 +49,9 @@ local function add_ores()
 	end
 
 	local overall_probability = 0.0
-	for name,probability in pairs(fs_sieve.ore_probability) do
+	for name, probability in pairs(fs_sieve.ore_probability) do
 		print(string.format("[fs_sieve] %-32s %u", name, probability))
-		overall_probability = overall_probability + 1.0/probability
+		overall_probability = overall_probability + 1.0 / probability
 	end
 
 	print(string.format("[fs_sieve] Overall probability %g", overall_probability))

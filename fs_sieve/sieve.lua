@@ -19,11 +19,17 @@ local animate_sieve = function(pos, meta, idx)
 	return idx
 end
 
-local add_random_ores = function(inv)
+local add_random_ore_pieces = function(inv)
 	local num
 	for ore, probability in pairs(fs_sieve.ore_probability) do
+		local ore_piece = fs_sieve.ore_pieces[ore]
+		if ore_piece then
+			probability = probability / 4.0
+			ore = ore_piece
+		end
+
 		if math.random(probability) == 1 then
-			local item = ItemStack(ore)
+			local item = ItemStack(ore_piece)
 			if inv:room_for_item("dst", item) then
 				inv:add_item("dst", item)
 			end
@@ -39,7 +45,7 @@ local update_sieve = function(pos)
 
 	if inv:contains_item("src", gravel) then
 		if idx == 0 then
-			add_random_ores(inv)
+			add_random_ore_pieces(inv)
 			inv:remove_item("src", gravel)
 		end
 

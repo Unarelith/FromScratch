@@ -39,6 +39,7 @@ TODOLIST
    ◦ DONE: Add `Wooden Crucible` to get `Water` from `Saplings`
    ◦ TODO: Handle more heat sources
 • TODO: Add `Porcelain Clay`
+• TODO: Use `infotext` to show progress
 
 # fs_core
 
@@ -55,13 +56,18 @@ TODOLIST
    ◦ WIP: Generic entity system (for one entity first but needs to be flexible)
       ◦ DONE: Handle entity registration and deletion
       ◦ TODO: Animation helper functions
+• TODO: `Infested Leaves` shouldn’t be shown in creative inventory
+• TODO: Use `infotext` instead of description to show progress
 
 # fs_sieve
 
 • DONE: Use an entity instead of multiple nodes
+• WIP: Add crafting items
+   ◦ DONE: Ore pieces
+   ◦ TODO: Seeds + pebbles
+• TODO: Remove inventories
 • TODO: Add `Dirt`, `Sand` and `Dust` support
 • TODO: Add a new entity for the silkmesh (maybe wait for `entity.visual = “nodebox”`)
-• TODO: Add ore pieces and various other items
 • TODO: Add multi-block sieve support like Ex Nihilo for Minecraft 1.12.2
 
 # fs_tools
