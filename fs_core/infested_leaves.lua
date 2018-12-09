@@ -17,13 +17,6 @@ fs_core.register_infested_leaves_type = function(leaves_name, node_name, texture
 	fs_core.leaves[leaves_name] = node_name
 
 	for idx = 0, N do
-		local not_in_creative_inventory
-		if idx == 0 then
-			not_in_creative_inventory = 0
-		else
-			not_in_creative_inventory = 1
-		end
-
 		local drop
 		if idx == N - 1 then
 			drop = {
@@ -50,7 +43,7 @@ fs_core.register_infested_leaves_type = function(leaves_name, node_name, texture
 				leafdecay = 3,
 				flammable = 2,
 				infested_leaves = 1,
-				not_in_creative_inventory = not_in_creative_inventory
+				not_in_creative_inventory = 1
 			},
 
 			drop = drop,

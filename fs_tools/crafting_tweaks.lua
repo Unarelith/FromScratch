@@ -42,13 +42,6 @@ table.insert(gravel.drop.items, 1, {
 	items = {"default:sand"}
 })
 
--- FIXME: Temporary recipe to get first cobble
-local dirt = minetest.registered_nodes["default:dirt"]
-table.insert(dirt.drop.items, 1, {
-	tools = {"~fs_tools:hammer_"},
-	items = {"default:cobble"}
-})
-
 local leaves_types = {
 	-- minetest_game
 	"default:leaves",

@@ -2,9 +2,9 @@ TODOLIST
 
 # Release plan for 0.3.0a (blocker for TechTest 0.2.0a)
 
-• New sieve output system and crafting items (ore pieces, seeds, pebbles, etc...)
-• `Dirt`, `Sand`, `Dust` support in sieve
-• New craft items (`Porcelain Clay`)
+• DONE: New sieve output system and crafting items (ore pieces, seeds, pebbles, etc...)
+• DONE: `Dirt`, `Sand`, `Dust` support in sieve
+• TODO: New craft items (`Porcelain Clay`)
 
 # Release plan for 0.3.1a (for TechTest 0.2.1a)
 
@@ -48,6 +48,7 @@ TODOLIST
    ◦ DONE: Add `Infested Leaves`
    ◦ DONE: Propagate leave infestation to neighbours
    ◦ DONE: Use original leaves texture instead of using `default:leaves`
+• DONE: `Infested Leaves` shouldn’t be shown in creative inventory
 • WIP: Add blocks
    ◦ DONE: Add `Dust`
    ◦ TODO: Add `Compressed Sand` and `Compressed Dust`
@@ -56,17 +57,17 @@ TODOLIST
    ◦ WIP: Generic entity system (for one entity first but needs to be flexible)
       ◦ DONE: Handle entity registration and deletion
       ◦ TODO: Animation helper functions
-• TODO: `Infested Leaves` shouldn’t be shown in creative inventory
 • TODO: Use `infotext` instead of description to show progress
 
 # fs_sieve
 
 • DONE: Use an entity instead of multiple nodes
+• DONE: Add `Dirt`, `Sand` and `Dust` support
 • WIP: Add crafting items
    ◦ DONE: Ore pieces
-   ◦ TODO: Seeds + pebbles
-• TODO: Remove inventories
-• TODO: Add `Dirt`, `Sand` and `Dust` support
+   ◦ DONE: Pebbles
+   ◦ TODO: Seeds
+• TODO: Remove `src` and `dest` inventories
 • TODO: Add a new entity for the silkmesh (maybe wait for `entity.visual = “nodebox”`)
 • TODO: Add multi-block sieve support like Ex Nihilo for Minecraft 1.12.2
 

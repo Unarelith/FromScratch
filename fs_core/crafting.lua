@@ -14,11 +14,3 @@ minetest.register_craft({
     cooktime = 3.5,
 })
 
--- FIXME: Temporary recipe to get cobble
-minetest.register_craft({
-    type = "cooking",
-    recipe = "default:dirt",
-    output = "default:cobble",
-    cooktime = 5,
-})
-
