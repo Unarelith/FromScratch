@@ -59,6 +59,8 @@ TODOLIST
       ◦ DONE: Handle entity registration and deletion
       ◦ TODO: Animation helper functions
 • TODO: Use `infotext` instead of description to show progress
+• TODO: `Porcelain Clay` = `Clay Lump` + `Bonemeal`
+• TODO: `Unfired Crucible` = ~ `Crucible`
 
 # fs_sieve
 

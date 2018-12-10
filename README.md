@@ -2,7 +2,7 @@
 
 FromScratch is a modpack for Minetest which provides a way to generate most resources from a single tree.
 
-This modpack is heavily inspirated by the Ex Nihilo mod for Minecraft.
+This modpack is basically a Minetest implementation of the Minecraft mod Ex Nihilo.
 
 It also provides a [small API](https://github.com/Quent42340/FromScratch/wiki/API-Documentation) to add custom Barrels, Crucibles and more.
 
@@ -72,5 +72,11 @@ Use a crook to get extra leaves drop:
 
 Copyright (C) 2018-2019 Quentin Bazin
 
-Code: Licensed under the GNU LGPL version 2.1 or later. See LICENSE.txt
+### Code
+
+Licensed under the GNU LGPL version 2.1 or later. See LICENSE.txt
+
+### Textures
+
+Most of the textures comes from [Ex Nihilo Creatio](https://github.com/BloodyMods/ExNihiloCreatio) and are under [CC-BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
