@@ -65,6 +65,7 @@ Use a crook to get extra leaves drop:
 
 - default
 - farming (for `farming:string`)
+- bonemeal
 - bucket
 - fluid_lib
 

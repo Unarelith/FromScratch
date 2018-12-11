@@ -40,7 +40,7 @@ local add_random_ore_pieces = function(inv)
 end
 
 local add_random_dirt_drops = function(inv)
-	local item = ItemStack("fs_core:stone_pebble "..math.random(1, 3))
+	local item = ItemStack("fs_core:stone_pebble "..math.random(3, 5))
 	if inv:room_for_item("dst", item) then
 		inv:add_item("dst", item)
 	end
