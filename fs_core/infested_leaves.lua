@@ -17,7 +17,7 @@ fs_core.register_infested_leaves_type = function(leaves_name, node_name, texture
 	fs_core.leaves[leaves_name] = node_name
 
 	for idx = 0, N do
-		local drop
+		local drop = {}
 		if idx == N - 1 then
 			drop = {
 				max_items = 1,

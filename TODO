@@ -1,24 +1,24 @@
 TODOLIST
 
-# Release plan for 0.3.0a (blocker for TechTest 0.2.0a)
-
-• DONE: New sieve output system and crafting items (ore pieces, seeds, pebbles, etc...)
-• DONE: `Dirt`, `Sand`, `Dust` support in sieve
-• DONE: New craft items (`Porcelain Clay`)
-
 # Release plan for 0.3.1a (for TechTest 0.2.1a)
 
-• Add API documentation for `fs_sieve.register_ore_piece`
-• Crucible heat source system
-• Better leaves handling (texture auto-gathering, etc..)
-• Full subentity API (animations, status, multi-entity (ex. crucible), etc...)
+• DONE: Fix Infested Leaves drop
+• DONE: Fix for minetest_game 5.0.0-dev
+• DONE: Porcelain Clay should be made from Bonemeal
+• DONE: Add API documentation for `fs_sieve.register_ore_piece`
+
+# Release plan for 0.4.0a
+
+• TODO: Crucible heat source system
+• TODO: Full subentity API (animations, status, multi-entity (ex. crucible), etc...)
+• TODO: Better leaves handling (texture auto-gathering, etc..)
 
 # Issues
 
 • DONE: Entity-based nodes are not updated correctly on login
+• DONE: Fix Sieve drops
+• DONE: Infested leaves drop themselves instead of nothing
 • TODO: Fix Barrel and Crucible textures when using a texture pack
-• TODO: Infested leaves drop themselves instead of nothing
-• TODO: Fix Sieve drops
 
 # fs_barrel
 
@@ -32,14 +32,16 @@ TODOLIST
    ◦ DONE: `Dust` + `Water` = `Clay`
    ◦ DONE: `Water` + `Lava` = `Obsidian`
 • TODO: Add “compostable” group or add a way to register items via API
+• TODO: Add flora, plants and such to “compostable” group
+• TODO: Items doesn’t have the same “compost” value
 
 # fs_crucible
 
-• WIP: Add crucibles
+• DONE: Add crucibles
    ◦ DONE: Add `Crucible` to get `Lava` from `Cobblestone`
    ◦ DONE: Add `Wooden Crucible` to get `Water` from `Saplings`
-   ◦ TODO: Handle more heat sources
-• TODO: Add `Porcelain Clay`
+• DONE: Add `Porcelain Clay`
+• TODO: Add an API for heat sources
 • TODO: Use `infotext` to show progress
 
 # fs_core
@@ -50,6 +52,7 @@ TODOLIST
    ◦ DONE: Propagate leave infestation to neighbours
    ◦ DONE: Use original leaves texture instead of using `default:leaves`
 • DONE: `Infested Leaves` shouldn’t be shown in creative inventory
+• DONE: `Porcelain Clay` = `Clay Lump` + `Bonemeal`
 • WIP: Add blocks
    ◦ DONE: Add `Dust`
    ◦ TODO: Add `Compressed Sand` and `Compressed Dust`
@@ -58,8 +61,6 @@ TODOLIST
    ◦ WIP: Generic entity system (for one entity first but needs to be flexible)
       ◦ DONE: Handle entity registration and deletion
       ◦ TODO: Animation helper functions
-• TODO: Use `infotext` instead of description to show progress
-• TODO: `Porcelain Clay` = `Clay Lump` + `Bonemeal`
 • TODO: `Unfired Crucible` = ~ `Crucible`
 
 # fs_sieve
@@ -71,6 +72,7 @@ TODOLIST
    ◦ DONE: Pebbles
    ◦ TODO: Seeds
 • TODO: Remove `src` and `dest` inventories
+• TODO: Add an API for drop items and input blocks
 • TODO: Add a new entity for the silkmesh (maybe wait for `entity.visual = “nodebox”`)
 • TODO: Add multi-block sieve support like Ex Nihilo for Minecraft 1.12.2
 

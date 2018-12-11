@@ -50,7 +50,6 @@ local leaves_types = {
 	"default:acacia_leaves",
 	"default:aspen_leaves",
 	"default:bush_leaves",
-	"default:blueberry_bush_leaves_with_berries",
 	"default:blueberry_bush_leaves",
 	"default:acacia_bush_leaves",
 	"default:pine_bush_needles",
