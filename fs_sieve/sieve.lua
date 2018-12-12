@@ -31,7 +31,7 @@ local add_random_ore_pieces = function(inv)
 		end
 
 		if math.random(probability) == 1 then
-			local item = ItemStack(ore_piece)
+			local item = ItemStack(ore)
 			if inv:room_for_item("dst", item) then
 				inv:add_item("dst", item)
 			end

@@ -6,6 +6,7 @@ TODOLIST
 • DONE: Fix for minetest_game 5.0.0-dev
 • DONE: Porcelain Clay should be made from Bonemeal
 • DONE: Add API documentation for `fs_sieve.register_ore_piece`
+• DONE: Fix `diamond`, `mese` and such in `Sieve` drops
 
 # Release plan for 0.4.0a
 
