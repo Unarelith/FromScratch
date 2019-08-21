@@ -76,7 +76,7 @@ local on_rightclick = function(pos, node, clicker, itemstack, pointed_thing)
 
 	if fluid_amount > 1000 and itemstack:get_name() == "bucket:bucket_empty" then
 		itemstack:take_item()
-		itemstack = fs_core.give_item_to_player(player, ItemStack("bucket:bucket_"..fluid))
+		itemstack = fs_core.give_item_to_player(clicker, itemstack, "bucket:bucket_"..fluid)
 
 		meta:set_int("fluid", fluid_amount - 1000)
 		update_entity(pos, input_amount, fluid_amount - 1000, input, fluid)
