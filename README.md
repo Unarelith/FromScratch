@@ -70,6 +70,7 @@ Use a crook to get extra leaves drop:
 - fluid_lib
 - elepower_dynamics (optional)
 - elepower_nuclear (optional)
+- moreores (optional)
 
 ## License
 

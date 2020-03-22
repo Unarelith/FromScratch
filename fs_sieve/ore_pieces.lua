@@ -48,3 +48,8 @@ if minetest.get_modpath("elepower_nuclear") then
 	fs_sieve.register_ore_piece("uranium_ore",    "Uranium Ore Piece",    "#339933", "elepower_nuclear:uranium_lump")
 end
 
+-- moreores ores
+if minetest.get_modpath("moreores") then
+	fs_sieve.register_ore_piece("silver_ore",     "Silver Ore Piece",     "#f0f0ff", "moreores:silver_lump")
+	fs_sieve.register_ore_piece("mithril_ore",    "Mithril Ore Piece",    "#3c3ccb", "moreores:mithril_lump")
+end

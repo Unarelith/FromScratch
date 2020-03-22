@@ -1,3 +1,4 @@
 fs_core
+moreores?
 elepower_nuclear?
 elepower_dynamics?
