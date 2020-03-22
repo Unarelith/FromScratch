@@ -37,9 +37,19 @@ fs_sieve.register_ore_piece("copper_ore",     "Copper Ore Piece",     "#ff9933",
 fs_sieve.register_ore_piece("tin_ore",        "Tin Ore Piece",        "#336699", "default:tin_lump")
 
 -- elepower ores
-fs_sieve.register_ore_piece("lead_ore",       "Lead Ore Piece",       "#330066", "elepower_dynamics:lead_lump")
-fs_sieve.register_ore_piece("nickel_ore",     "Nickel Ore Piece",     "#ffffcc", "elepower_dynamics:nickel_lump")
-fs_sieve.register_ore_piece("zinc_ore",       "Zinc Ore Piece",       "#000022", "elepower_dynamics:zinc_lump")
-fs_sieve.register_ore_piece("viridisium_ore", "Viridisium Ore Piece", "#006611", "elepower_dynamics:viridisium_lump")
-fs_sieve.register_ore_piece("uranium_ore",    "Uranium Ore Piece",    "#339933", "elepower_nuclear:uranium_lump")
+if minetest.get_modpath("elepower_dynamics") then
+	fs_sieve.register_ore_piece("lead_ore",       "Lead Ore Piece",       "#330066", "elepower_dynamics:lead_lump")
+	fs_sieve.register_ore_piece("nickel_ore",     "Nickel Ore Piece",     "#ffffcc", "elepower_dynamics:nickel_lump")
+	fs_sieve.register_ore_piece("zinc_ore",       "Zinc Ore Piece",       "#000022", "elepower_dynamics:zinc_lump")
+	fs_sieve.register_ore_piece("viridisium_ore", "Viridisium Ore Piece", "#006611", "elepower_dynamics:viridisium_lump")
+end
 
+if minetest.get_modpath("elepower_nuclear") then
+	fs_sieve.register_ore_piece("uranium_ore",    "Uranium Ore Piece",    "#339933", "elepower_nuclear:uranium_lump")
+end
+
+-- moreores ores
+if minetest.get_modpath("moreores") then
+	fs_sieve.register_ore_piece("silver_ore",     "Silver Ore Piece",     "#f0f0ff", "moreores:silver_lump")
+	fs_sieve.register_ore_piece("mithril_ore",    "Mithril Ore Piece",    "#3c3ccb", "moreores:mithril_lump")
+end
