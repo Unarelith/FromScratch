@@ -68,6 +68,8 @@ Use a crook to get extra leaves drop:
 - bonemeal
 - bucket
 - fluid_lib
+- elepower_dynamics (optional)
+- elepower_nuclear (optional)
 
 ## License
 

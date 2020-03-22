@@ -1,1 +1,3 @@
 fs_core
+elepower_nuclear?
+elepower_dynamics?
